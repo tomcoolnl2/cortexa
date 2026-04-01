@@ -16,7 +16,7 @@ import {
 import { IconSun, IconMoon } from '@tabler/icons-react';
 import { UserRole } from '@cortexa/types';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 interface HeaderViewer {
     name?: string | null;
@@ -35,6 +35,9 @@ export function AppHeader({ viewer, scenarioRole }: AppHeaderProps) {
     const computedColorScheme = useComputedColorScheme('light');
     const router = useRouter();
     const [savingScenario, setSavingScenario] = useState(false);
+
+    const [mounted, setMounted] = useState(false);
+    useEffect(() => setMounted(true), []);
 
     const toggleColorScheme = () => {
         setColorScheme(computedColorScheme === 'dark' ? 'light' : 'dark');
@@ -127,12 +130,15 @@ export function AppHeader({ viewer, scenarioRole }: AppHeaderProps) {
                     size="lg"
                     onClick={toggleColorScheme}
                     aria-label="Toggle color scheme"
-                    suppressHydrationWarning
                 >
-                    {computedColorScheme === 'dark' ? (
-                        <IconSun size={18} />
+                    {mounted ? (
+                        computedColorScheme === 'dark' ? (
+                            <IconSun size={18} />
+                        ) : (
+                            <IconMoon size={18} />
+                        )
                     ) : (
-                        <IconMoon size={18} />
+                        <IconSun size={18} />
                     )}
                 </ActionIcon>
             </Group>
