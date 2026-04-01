@@ -1,10 +1,20 @@
 import { PrismaClient } from '@prisma/client';
+import { PrismaPg } from '@prisma/adapter-pg';
+
+const DATABASE_URL =
+    process.env['DATABASE_URL'] ??
+    'postgresql://postgres:postgres@localhost:5432/cortexa';
 
 let prisma: PrismaClient;
 
 declare global {
     // eslint-disable-next-line no-var
     var __prisma: PrismaClient | undefined;
+}
+
+function createClient(): PrismaClient {
+    const adapter = new PrismaPg({ connectionString: DATABASE_URL });
+    return new PrismaClient({ adapter });
 }
 
 /**
@@ -14,16 +24,14 @@ declare global {
 export function getPrismaClient(): PrismaClient {
     if (process.env['NODE_ENV'] === 'production') {
         if (!prisma) {
-            prisma = new PrismaClient();
+            prisma = createClient();
         }
         return prisma;
     }
 
     if (!globalThis.__prisma) {
-        globalThis.__prisma = new PrismaClient();
+        globalThis.__prisma = createClient();
     }
 
     return globalThis.__prisma;
 }
-
-export { PrismaClient };
