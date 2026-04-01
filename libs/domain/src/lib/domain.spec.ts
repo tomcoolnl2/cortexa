@@ -2,11 +2,11 @@ import { BasicMultipleChoiceStrategy } from './quiz/basic-multiple-choice.strate
 import { ScoreCalculator } from './quiz/score-calculator';
 
 describe('domain exports', () => {
-  it('should export BasicMultipleChoiceStrategy', () => {
-    expect(BasicMultipleChoiceStrategy).toBeDefined();
-  });
+    it('should export BasicMultipleChoiceStrategy', () => {
+        expect(BasicMultipleChoiceStrategy).toBeDefined();
+    });
 
-  it('should export ScoreCalculator', () => {
-    expect(ScoreCalculator).toBeDefined();
-  });
+    it('should export ScoreCalculator', () => {
+        expect(ScoreCalculator).toBeDefined();
+    });
 });

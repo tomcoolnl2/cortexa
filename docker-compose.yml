@@ -1,38 +1,38 @@
 services:
-  postgres:
-    image: postgres:17-alpine
-    environment:
-      POSTGRES_USER: cortexa
-      POSTGRES_PASSWORD: cortexa_dev
-      POSTGRES_DB: cortexa
-    ports:
-      - '5432:5432'
-    volumes:
-      - pgdata:/var/lib/postgresql/data
+    postgres:
+        image: postgres:17-alpine
+        environment:
+            POSTGRES_USER: cortexa
+            POSTGRES_PASSWORD: cortexa_dev
+            POSTGRES_DB: cortexa
+        ports:
+            - '5432:5432'
+        volumes:
+            - pgdata:/var/lib/postgresql/data
 
-  api:
-    build:
-      context: .
-      dockerfile: apps/api/Dockerfile
-    ports:
-      - '3333:3333'
-    environment:
-      DATABASE_URL: postgresql://cortexa:cortexa_dev@postgres:5432/cortexa
-      NODE_ENV: development
-    depends_on:
-      - postgres
+    api:
+        build:
+            context: .
+            dockerfile: apps/api/Dockerfile
+        ports:
+            - '3333:3333'
+        environment:
+            DATABASE_URL: postgresql://cortexa:cortexa_dev@postgres:5432/cortexa
+            NODE_ENV: development
+        depends_on:
+            - postgres
 
-  web:
-    build:
-      context: .
-      dockerfile: apps/web/Dockerfile
-    ports:
-      - '3000:3000'
-    environment:
-      NEXT_PUBLIC_API_URL: http://localhost:3333/api
-      NODE_ENV: development
-    depends_on:
-      - api
+    web:
+        build:
+            context: .
+            dockerfile: apps/web/Dockerfile
+        ports:
+            - '3000:3000'
+        environment:
+            NEXT_PUBLIC_API_URL: http://localhost:3333/api
+            NODE_ENV: development
+        depends_on:
+            - api
 
 volumes:
-  pgdata:
+    pgdata:

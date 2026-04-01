@@ -146,28 +146,33 @@ Quiz logic is pluggable via the `QuizStrategy` interface:
 
 ```typescript
 interface QuizStrategy {
-  generateQuestions(cards: Card[], count: number): QuizQuestion[];
-  evaluateAnswer(question: QuizQuestion, selectedAnswer: string): QuizAnswerResult;
-  calculateScore(answers: QuizAnswerResult[]): number;
+    generateQuestions(cards: Card[], count: number): QuizQuestion[];
+    evaluateAnswer(
+        question: QuizQuestion,
+        selectedAnswer: string,
+    ): QuizAnswerResult;
+    calculateScore(answers: QuizAnswerResult[]): number;
 }
 ```
 
 Current implementations:
+
 - **BasicMultipleChoiceStrategy** — standard multiple-choice quiz generation and scoring
 
 Future extensions:
+
 - Adaptive difficulty based on performance history
 - Game-theory-based payoff scoring models
 
 ### Data Model
 
-| Model | Description |
-|-------|-------------|
-| `User` | Platform users |
-| `Deck` | Collections of flashcards |
-| `Card` | Term/definition pairs within a deck |
-| `QuizAttempt` | A user's quiz session on a deck |
-| `QuizAnswer` | Individual answers within an attempt |
+| Model         | Description                          |
+| ------------- | ------------------------------------ |
+| `User`        | Platform users                       |
+| `Deck`        | Collections of flashcards            |
+| `Card`        | Term/definition pairs within a deck  |
+| `QuizAttempt` | A user's quiz session on a deck      |
+| `QuizAnswer`  | Individual answers within an attempt |
 
 ## Roadmap
 

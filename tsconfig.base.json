@@ -1,29 +1,29 @@
 {
-  "compileOnSave": false,
-  "compilerOptions": {
-    "rootDir": ".",
-    "sourceMap": true,
-    "declaration": false,
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "importHelpers": true,
-    "target": "es2015",
-    "module": "esnext",
-    "lib": ["es2020", "dom"],
-    "skipLibCheck": true,
-    "skipDefaultLibCheck": true,
-    "baseUrl": ".",
-    "paths": {
-      "@cortexa/ui": ["libs/ui/src/index.ts"],
-      "@cortexa/types": ["libs/types/src/index.ts"],
-      "@cortexa/utils": ["libs/utils/src/index.ts"],
-      "@cortexa/domain": ["libs/domain/src/index.ts"],
-      "@cortexa/api-interfaces": ["libs/api-interfaces/src/index.ts"],
-      "@cortexa/data-access": ["libs/data-access/src/index.ts"],
-      "@cortexa/hooks": ["libs/hooks/src/index.ts"],
-      "@cortexa/api-client": ["libs/api-client/src/index.ts"]
-    }
-  },
-  "exclude": ["node_modules", "tmp"]
+    "compileOnSave": false,
+    "compilerOptions": {
+        "rootDir": ".",
+        "sourceMap": true,
+        "declaration": false,
+        "moduleResolution": "node",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "importHelpers": true,
+        "target": "es2015",
+        "module": "esnext",
+        "lib": ["es2020", "dom"],
+        "skipLibCheck": true,
+        "skipDefaultLibCheck": true,
+        "baseUrl": ".",
+        "paths": {
+            "@cortexa/ui": ["libs/ui/src/index.ts"],
+            "@cortexa/types": ["libs/types/src/index.ts"],
+            "@cortexa/utils": ["libs/utils/src/index.ts"],
+            "@cortexa/domain": ["libs/domain/src/index.ts"],
+            "@cortexa/api-interfaces": ["libs/api-interfaces/src/index.ts"],
+            "@cortexa/data-access": ["libs/data-access/src/index.ts"],
+            "@cortexa/hooks": ["libs/hooks/src/index.ts"],
+            "@cortexa/api-client": ["libs/api-client/src/index.ts"]
+        }
+    },
+    "exclude": ["node_modules", "tmp"]
 }
