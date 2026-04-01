@@ -3,12 +3,11 @@ import { PrismaPg } from '@prisma/adapter-pg';
 
 const DATABASE_URL =
     process.env['DATABASE_URL'] ??
-    'postgresql://postgres:postgres@localhost:5432/cortexa';
+    'postgresql://cortexa:cortexa_dev@localhost:5432/cortexa';
 
 let prisma: PrismaClient;
 
 declare global {
-    // eslint-disable-next-line no-var
     var __prisma: PrismaClient | undefined;
 }
 
