@@ -3,6 +3,9 @@ import { getPrismaClient } from '../src/lib/prisma-client';
 const prisma = getPrismaClient();
 
 async function main() {
+    const adminEmail =
+        process.env['ADMIN_EMAIL']?.trim().toLowerCase() ?? 'admin@cortexa.dev';
+
     // Clean existing data
     await prisma.quizAnswer.deleteMany();
     await prisma.quizAttempt.deleteMany();
@@ -10,11 +13,12 @@ async function main() {
     await prisma.deck.deleteMany();
     await prisma.user.deleteMany();
 
-    // Create a demo user
+    // Create a first admin user (the Google account owner for local bootstrap).
     const user = await prisma.user.create({
         data: {
-            email: 'demo@cortexa.dev',
-            name: 'Demo User',
+            email: adminEmail,
+            name: 'Admin User',
+            role: 'admin',
         },
     });
 
@@ -56,7 +60,7 @@ async function main() {
         },
     });
 
-    console.log(`Seeded user: ${user.email}`);
+    console.log(`Seeded admin user: ${user.email}`);
     console.log(`Seeded deck: ${deck.title} with 5 cards`);
 }
 

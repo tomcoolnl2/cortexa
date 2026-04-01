@@ -89,6 +89,8 @@ npm run db:generate   # regenerate the Prisma Client
 
 With the API running, Swagger docs are available at **http://localhost:3333/api/docs**.
 
+Authentication is required for Deck and Card endpoints. See `docs/auth-setup.md` for Google SSO, role setup, and scenario testing flow.
+
 ### Decks
 
 -   `GET    /api/decks`        — list all decks (with cards)

@@ -17,6 +17,14 @@ async function bootstrap() {
         .setTitle('Cortexa API')
         .setDescription('Learning platform API for decks, cards, and quizzes')
         .setVersion('1.0')
+        .addBearerAuth(
+            {
+                type: 'http',
+                scheme: 'bearer',
+                bearerFormat: 'JWT',
+            },
+            'bearer',
+        )
         .build();
     const document = SwaggerModule.createDocument(app, config);
     SwaggerModule.setup('api/docs', app, document);

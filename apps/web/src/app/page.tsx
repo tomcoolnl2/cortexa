@@ -1,4 +1,5 @@
 import { api } from '@cortexa/api-client';
+import { Deck } from '@cortexa/types';
 import {
     Container,
     Title,
@@ -7,28 +8,42 @@ import {
     Card,
     Group,
     Badge,
+    Alert,
 } from '@mantine/core';
 import Link from 'next/link';
+import { auth } from '../auth';
+import { cookies } from 'next/headers';
+import { USER_ROLES } from '@cortexa/types';
 
 export default async function DecksPage() {
-    let decks;
+    const session = await auth();
+    const scenarioCookie = (await cookies()).get('cortexa_role_scenario')?.value;
+    const scenarioRole = USER_ROLES.find((role) => role === scenarioCookie);
+
+    let decks: Deck[] = [];
     try {
-        decks = await api.decks.list();
+        if (session?.user) {
+            decks = await api.decks.list({
+                token: session.apiToken,
+                scenarioRole,
+            });
+        } else {
+            decks = await api.decks.listPublic();
+        }
     } catch {
-        return (
-            <Container size="md" py="xl">
-                <Title>Cortexa</Title>
-                <Text c="red" mt="md">
-                    Could not connect to the API. Make sure the API is running
-                    on port 3333.
-                </Text>
-            </Container>
-        );
+        decks = [];
     }
 
     return (
         <Container size="md" py="xl">
             <Title mb="lg">Your Decks</Title>
+
+            {scenarioRole === 'reader' ? (
+                <Alert color="blue" variant="light" mb="md">
+                    Reader scenario is active. Mutating actions are disabled by
+                    API role checks.
+                </Alert>
+            ) : null}
 
             {decks.length === 0 ? (
                 <Text c="dimmed">
