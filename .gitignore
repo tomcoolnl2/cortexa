@@ -1,0 +1,27 @@
+# Dependencies
+node_modules
+
+# Build outputs
+dist
+.next
+
+# Nx
+.nx
+
+# Vite
+vite.config.*.timestamp*
+vitest.config.*.timestamp*
+
+# Storybook
+storybook-static
+
+# Environment
+.env
+.env.local
+
+# IDE
+.idea
+
+# OS
+.DS_Store
+node_modules
