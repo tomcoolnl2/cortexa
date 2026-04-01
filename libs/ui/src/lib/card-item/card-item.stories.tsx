@@ -1,19 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { MantineProvider } from '@mantine/core';
 import { CardItem } from './card-item';
 
 const meta: Meta<typeof CardItem> = {
     component: CardItem,
     title: 'CardItem',
-    decorators: [
-        (Story) => (
-            <MantineProvider>
-                <div style={{ maxWidth: 400, padding: 20 }}>
-                    <Story />
-                </div>
-            </MantineProvider>
-        ),
-    ],
 };
 export default meta;
 
