@@ -5,7 +5,7 @@ import {
     UnauthorizedException,
 } from '@nestjs/common';
 import { jwtVerify } from 'jose';
-import { USER_ROLES } from '@cortexa/types';
+import { USER_ROLES } from '@cortexa/models';
 import { ApiJwtClaims, AuthenticatedRequestUser } from './auth.types';
 import { PrismaService } from '../prisma/prisma.service';
 

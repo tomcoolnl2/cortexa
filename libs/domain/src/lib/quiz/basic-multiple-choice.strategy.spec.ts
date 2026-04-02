@@ -1,4 +1,5 @@
-import { Card } from '@cortexa/types';
+// eslint-disable-next-line @nx/enforce-module-boundaries
+import { Card } from '@cortexa/models';
 import { BasicMultipleChoiceStrategy } from './basic-multiple-choice.strategy';
 
 describe('BasicMultipleChoiceStrategy', () => {

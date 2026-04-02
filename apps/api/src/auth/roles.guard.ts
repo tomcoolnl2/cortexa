@@ -5,7 +5,7 @@ import {
     Injectable,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { UserRole } from '@cortexa/types';
+import { UserRole } from '@cortexa/models';
 import { ROLES_KEY } from './roles.decorator';
 import { AuthenticatedRequestUser } from './auth.types';
 

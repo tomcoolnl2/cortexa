@@ -1,4 +1,4 @@
-import { UserRole } from '@cortexa/types';
+import { UserRole } from '@cortexa/models';
 
 export interface ApiJwtClaims {
     sub: string;

@@ -1,7 +1,7 @@
 import NextAuth from 'next-auth';
 import Google from 'next-auth/providers/google';
 import { SignJWT } from 'jose';
-import { USER_ROLES, UserRole } from '@cortexa/types';
+import { USER_ROLES, UserRole } from '@cortexa/models';
 
 const adminEmail = process.env['ADMIN_EMAIL']?.toLowerCase();
 const apiJwtSecret =

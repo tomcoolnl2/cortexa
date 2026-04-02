@@ -18,7 +18,7 @@ import {
 } from "@mantine/core";
 import { IconTrash, IconPlus } from "@tabler/icons-react";
 import { api } from "@cortexa/api-client";
-import { Deck } from "@cortexa/types";
+import { Deck } from "@cortexa/models";
 
 export default function EditDeckPage() {
   const router = useRouter();

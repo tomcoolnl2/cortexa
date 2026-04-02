@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { CreateDeckDto, UpdateDeckDto } from '@cortexa/types';
+import { CreateDeckDto, UpdateDeckDto } from '@cortexa/models';
 
 @Injectable()
 export class DecksService {

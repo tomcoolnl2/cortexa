@@ -9,7 +9,7 @@ import {
     UseGuards,
 } from '@nestjs/common';
 import { DecksService } from './decks.service';
-import { CreateDeckDto, UpdateDeckDto } from '@cortexa/types';
+import { CreateDeckDto, UpdateDeckDto } from '@cortexa/models';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';

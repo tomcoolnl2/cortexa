@@ -1,5 +1,5 @@
 import { api } from '@cortexa/api-client';
-import { Deck } from '@cortexa/types';
+import { Deck } from '@cortexa/models';
 import {
     Container,
     Title,

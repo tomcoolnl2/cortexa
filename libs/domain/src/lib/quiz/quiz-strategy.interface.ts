@@ -1,4 +1,5 @@
-import { Card, QuizQuestion, QuizAnswerResult } from '@cortexa/types';
+// eslint-disable-next-line @nx/enforce-module-boundaries
+import { Card, QuizQuestion, QuizAnswerResult } from 'libs/models/src';
 
 export interface QuizStrategy {
     /** Generate quiz questions from a set of cards */

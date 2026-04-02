@@ -15,7 +15,7 @@ import {
 } from '@mantine/core';
 import { signIn, signOut } from 'next-auth/react';
 import { IconSun, IconMoon } from '@tabler/icons-react';
-import { UserRole } from '@cortexa/types';
+import { UserRole } from '@cortexa/models';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 

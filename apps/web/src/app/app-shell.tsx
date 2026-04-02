@@ -9,7 +9,7 @@ import { IconWorld } from '@tabler/icons-react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { AppHeader, type HeaderViewer } from './app-header';
-import { UserRole } from '@cortexa/types';
+import { UserRole } from '@cortexa/models';
 import { useState } from 'react';
 import { Burger } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';

@@ -1,9 +1,10 @@
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import {
     Deck,
     CreateDeckDto,
     UpdateDeckDto,
     ApiAuthContext,
-} from '@cortexa/types';
+} from 'libs/models/src';
 
 const API_BASE =
     process.env['NEXT_PUBLIC_API_URL'] ?? 'http://localhost:3333/api';

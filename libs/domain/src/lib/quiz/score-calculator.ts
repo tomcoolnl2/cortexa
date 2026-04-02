@@ -1,4 +1,5 @@
-import { QuizAnswerResult } from '@cortexa/types';
+// eslint-disable-next-line @nx/enforce-module-boundaries
+import { QuizAnswerResult } from 'libs/models/src';
 
 export class ScoreCalculator {
     /**

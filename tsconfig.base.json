@@ -16,7 +16,7 @@
         "baseUrl": ".",
         "paths": {
             "@cortexa/ui": ["libs/ui/src/index.ts"],
-            "@cortexa/types": ["libs/types/src/index.ts"],
+            "@cortexa/models": ["libs/models/src/index.ts"],
             "@cortexa/utils": ["libs/utils/src/index.ts"],
             "@cortexa/domain": ["libs/domain/src/index.ts"],
             "@cortexa/api-interfaces": ["libs/api-interfaces/src/index.ts"],

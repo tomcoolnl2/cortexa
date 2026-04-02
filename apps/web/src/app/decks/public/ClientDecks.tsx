@@ -1,6 +1,6 @@
 "use client";
 
-import { Deck } from '@cortexa/types';
+import { Deck } from '@cortexa/models';
 import {
   SegmentedControl,
   Stack,

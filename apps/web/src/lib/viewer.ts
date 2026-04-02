@@ -1,7 +1,7 @@
 import { cache } from 'react';
 import { auth } from '../auth';
 import { cookies } from 'next/headers';
-import { USER_ROLES, UserRole, ApiAuthContext } from '@cortexa/types';
+import { USER_ROLES, UserRole, ApiAuthContext } from '@cortexa/models';
 
 export interface Viewer {
     authenticated: true;
