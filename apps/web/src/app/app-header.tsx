@@ -9,9 +9,9 @@ import {
     Select,
     Button,
     Avatar,
-    Stack,
     useMantineColorScheme,
     useComputedColorScheme,
+    Menu,
 } from '@mantine/core';
 import { IconSun, IconMoon } from '@tabler/icons-react';
 import { UserRole } from '@cortexa/types';
@@ -71,53 +71,59 @@ export function AppHeader({ viewer, scenarioRole }: AppHeaderProps) {
             px="md"
             py="sm"
             style={{ borderBottom: '1px solid var(--mantine-color-default-border)' }}
+            w="100%"
         >
             <Title order={3}>Cortexa</Title>
 
             <Group gap="sm">
                 {viewer ? (
                     <>
-                        <Stack gap={2} align="flex-end">
-                            <Group gap={6}>
-                                <Text size="sm" fw={500}>
-                                    {viewer.name ?? viewer.email}
-                                </Text>
-                                <Badge variant="light" tt="capitalize">
-                                    {roleInEffect}
-                                </Badge>
-                            </Group>
-                            {viewer.role === 'admin' ? (
-                                <Select
-                                    size="xs"
-                                    w={180}
-                                    disabled={savingScenario}
-                                    aria-label="User scenario"
-                                    value={roleInEffect ?? 'admin'}
-                                    onChange={onScenarioChange}
-                                    data={[
-                                        { value: 'admin', label: 'Scenario: Admin' },
-                                        { value: 'creator', label: 'Scenario: Creator' },
-                                        { value: 'reader', label: 'Scenario: Reader' },
-                                    ]}
-                                />
-                            ) : null}
-                        </Stack>
+                        {viewer.role === 'admin' ? (
+                            <Select
+                                size="xs"
+                                w={120}
+                                disabled={savingScenario}
+                                aria-label="Role"
+                                value={roleInEffect ?? 'admin'}
+                                onChange={onScenarioChange}
+                                data={[
+                                    { value: 'admin', label: 'Admin' },
+                                    { value: 'creator', label: 'Creator' },
+                                    { value: 'reader', label: 'Reader' },
+                                ]}
+                            />
+                        ) : null}
 
-                        <Avatar
-                            src={viewer.image ?? undefined}
-                            radius="xl"
-                            size="sm"
-                        >
-                            {(viewer.name ?? viewer.email ?? 'U')[0]}
-                        </Avatar>
-                        <Button
-                            variant="light"
-                            size="xs"
-                            component="a"
-                            href="/api/auth/signout?callbackUrl=/"
-                        >
-                            Sign out
-                        </Button>
+                        <Menu withArrow position="bottom-end" offset={8}>
+                            <Menu.Target>
+                                <Avatar
+                                    src={viewer.image ?? undefined}
+                                    radius="xl"
+                                    size="sm"
+                                    style={{ cursor: 'pointer' }}
+                                >
+                                    {(viewer.name ?? viewer.email ?? 'U')[0]}
+                                </Avatar>
+                            </Menu.Target>
+                            <Menu.Dropdown>
+                                <Menu.Label>Account</Menu.Label>
+                                <Group gap={6} px="sm" py={2}>
+                                    <Text size="sm" fw={500}>
+                                        {viewer.name ?? viewer.email}
+                                    </Text>
+                                    <Badge variant="light" tt="capitalize">
+                                        {roleInEffect}
+                                    </Badge>
+                                </Group>
+                                <Menu.Divider />
+                                <Menu.Item
+                                    component="a"
+                                    href="/api/auth/signout?callbackUrl=/"
+                                >
+                                    Sign out
+                                </Menu.Item>
+                            </Menu.Dropdown>
+                        </Menu>
                     </>
                 ) : (
                     <Button component="a" href="/api/auth/signin" size="xs">
