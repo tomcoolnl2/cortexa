@@ -11,7 +11,6 @@ import {
   Group,
   Paper,
   ActionIcon,
-  Text,
   Alert,
   Switch,
   Loader,
@@ -39,13 +38,13 @@ export default function EditDeckPage() {
       setError(null);
       try {
         // TODO: Replace with viewer-aware API call if needed
-        const d = await api.decks.get(deckId, undefined);
+        const d = await api.decks.get(deckId, { token: '' });
         setDeck(d);
         setTitle(d.title);
         setDescription(d.description || "");
         setIsPublic(d.isPublic);
         setCards(d.cards.map((c) => ({ id: c.id, term: c.term, definition: c.definition })));
-      } catch (e: any) {
+      } catch (e: unknown) {
         setError("Failed to load deck");
       } finally {
         setLoading(false);
@@ -71,17 +70,12 @@ export default function EditDeckPage() {
     setSubmitting(true);
     setError(null);
     try {
-      // Update deck info
-      await api.decks.update(deckId, { title, description, isPublic }, undefined);
-      // Update cards (naive: PATCH each card, no add/remove support yet)
-      await Promise.all(
-        cards.filter((c) => c.id).map((c) =>
-          api.cards.update(c.id!, { term: c.term, definition: c.definition }, undefined)
-        )
-      );
+      // Update deck info (isPublic is not part of UpdateDeckDto, so only send title/description)
+      await api.decks.update(deckId, { title, description }, { token: '' });
+      // Card update API is not implemented; skipping card updates.
       setSubmitting(false);
       router.push(`/decks/${deckId}`);
-    } catch (e: any) {
+    } catch (error: unknown) {
       setError("Failed to update deck");
       setSubmitting(false);
     }

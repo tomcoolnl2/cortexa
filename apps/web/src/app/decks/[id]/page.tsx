@@ -7,6 +7,7 @@ import {
     Group,
     Badge,
     Alert,
+    Button,
 } from '@mantine/core';
 import Link from 'next/link';
 import { FlashCard } from '@cortexa/ui';
@@ -61,9 +62,9 @@ export default async function DeckPage({ params }: DeckPageProps) {
             </Group>
 
                {/* Show Edit button for users with edit permissions */}
-               {viewer && viewer.canEdit && (
+               {viewer && viewer.canCreate && (
                    <Group mb="lg">
-                       <Link href={`/decks/${deck.id}/edit`} passHref legacyBehavior>
+                       <Link href={`/decks/${deck.id}/edit`} passHref>
                            <Button component="a" variant="light">Edit Deck</Button>
                        </Link>
                    </Group>

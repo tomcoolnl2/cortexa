@@ -19,7 +19,7 @@ import { UserRole } from '@cortexa/models';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 
-interface HeaderViewer {
+export interface HeaderViewer {
     name?: string | null;
     email?: string | null;
     image?: string | null;

@@ -78,7 +78,8 @@ describe('BasicMultipleChoiceStrategy', () => {
         it('should mark wrong answer', () => {
             const questions = strategy.generateQuestions(cards, 1);
             const q = questions[0];
-            const wrongAnswer = q.options.find((_, i) => i !== q.correctIndex)!;
+            const wrongAnswer = q.options.find((_, i) => i !== q.correctIndex);
+            if (!wrongAnswer) throw new Error('No wrong answer found');
             const result = strategy.evaluateAnswer(q, wrongAnswer);
             expect(result.isCorrect).toBe(false);
         });
