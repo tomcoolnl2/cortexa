@@ -13,6 +13,7 @@ import {
     useComputedColorScheme,
     Menu,
 } from '@mantine/core';
+import { signIn, signOut } from 'next-auth/react';
 import { IconSun, IconMoon } from '@tabler/icons-react';
 import { UserRole } from '@cortexa/types';
 import { useRouter } from 'next/navigation';
@@ -117,8 +118,11 @@ export function AppHeader({ viewer, scenarioRole }: AppHeaderProps) {
                                 </Group>
                                 <Menu.Divider />
                                 <Menu.Item
-                                    component="a"
-                                    href="/api/auth/signout?callbackUrl=/"
+                                    onClick={async () => {
+                                        await signOut({ redirect: false });
+                                        router.push('/');
+                                        router.refresh();
+                                    }}
                                 >
                                     Sign out
                                 </Menu.Item>
@@ -126,7 +130,15 @@ export function AppHeader({ viewer, scenarioRole }: AppHeaderProps) {
                         </Menu>
                     </>
                 ) : (
-                    <Button component="a" href="/api/auth/signin" size="xs">
+                    <Button
+                        size="xs"
+                        onClick={async () => {
+                            const res = await signIn('google', { redirect: false, callbackUrl: '/' });
+                            if (res?.url) {
+                                router.push(res.url);
+                            }
+                        }}
+                    >
                         Sign in with Google
                     </Button>
                 )}
