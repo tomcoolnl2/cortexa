@@ -10,34 +10,27 @@ import {
 } from '@mantine/core';
 import Link from 'next/link';
 import { FlashCard } from '@cortexa/ui';
-import { auth } from '../../../auth';
-import { cookies } from 'next/headers';
-import { USER_ROLES } from '@cortexa/types';
+import { getViewer } from '../../../lib/viewer';
 
 interface DeckPageProps {
     params: Promise<{ id: string }>;
 }
 
 export default async function DeckPage({ params }: DeckPageProps) {
-    const session = await auth();
+    const viewer = await getViewer();
     const { id } = await params;
-    const scenarioCookie = (await cookies()).get('cortexa_role_scenario')?.value;
-    const scenarioRole = USER_ROLES.find((role) => role === scenarioCookie);
 
     let deck;
     try {
-        if (session?.user) {
-            deck = await api.decks.get(id, {
-                token: session.apiToken,
-                scenarioRole,
-            });
+        if (viewer) {
+            deck = await api.decks.get(id, viewer.authContext);
         } else {
             deck = await api.decks.getPublic(id);
         }
     } catch {
         return (
             <Container size="md" py="xl">
-                <Link href="/" style={{ textDecoration: 'none' }}>
+                <Link href="/decks/public" style={{ textDecoration: 'none' }}>
                     &larr; Back to decks
                 </Link>
                 <Text c="red" mt="md">
@@ -49,7 +42,7 @@ export default async function DeckPage({ params }: DeckPageProps) {
 
     return (
         <Container size="md" py="xl">
-            <Link href="/" style={{ textDecoration: 'none' }}>
+            <Link href="/decks/public" style={{ textDecoration: 'none' }}>
                 &larr; Back to decks
             </Link>
 
@@ -67,7 +60,16 @@ export default async function DeckPage({ params }: DeckPageProps) {
                 </Badge>
             </Group>
 
-            {scenarioRole === 'reader' ? (
+               {/* Show Edit button for users with edit permissions */}
+               {viewer && viewer.canEdit && (
+                   <Group mb="lg">
+                       <Link href={`/decks/${deck.id}/edit`} passHref legacyBehavior>
+                           <Button component="a" variant="light">Edit Deck</Button>
+                       </Link>
+                   </Group>
+               )}
+
+            {viewer?.scenarioRole === 'reader' ? (
                 <Alert color="blue" variant="light" mb="lg">
                     Reader scenario active: card/deck create, edit, and delete
                     endpoints are blocked.

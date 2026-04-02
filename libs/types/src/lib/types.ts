@@ -28,6 +28,7 @@ export interface Deck {
     id: string;
     title: string;
     description?: string;
+    isPublic: boolean;
     userId: string;
     cards: Card[];
 }
@@ -35,6 +36,7 @@ export interface Deck {
 export interface CreateDeckDto {
     title: string;
     description?: string;
+    isPublic?: boolean;
     cards: { term: string; definition: string }[];
 }
 

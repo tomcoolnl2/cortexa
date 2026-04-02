@@ -13,6 +13,8 @@ const SECRET = new TextEncoder().encode(
     process.env['API_JWT_SECRET'] ?? 'dev-insecure-api-jwt-secret',
 );
 
+const ADMIN_EMAIL = process.env['ADMIN_EMAIL']?.toLowerCase();
+
 @Injectable()
 export class JwtAuthGuard implements CanActivate {
     constructor(private readonly prisma: PrismaService) {}
@@ -40,15 +42,18 @@ export class JwtAuthGuard implements CanActivate {
                 throw new UnauthorizedException('Token email claim is required');
             }
 
+            const isAdmin = ADMIN_EMAIL && email === ADMIN_EMAIL;
+
             const dbUser = await this.prisma.client.user.upsert({
                 where: { email },
                 update: {
                     googleSub: verified.payload.sub,
+                    ...(isAdmin && { role: 'admin' }),
                 },
                 create: {
                     email,
                     googleSub: verified.payload.sub,
-                    role: 'reader',
+                    role: isAdmin ? 'admin' : 'reader',
                 },
             });
 

@@ -15,13 +15,14 @@ export class DecksService {
 
     findAllPublic() {
         return this.prisma.client.deck.findMany({
+            where: { isPublic: true },
             include: { cards: true },
         });
     }
 
     async findOnePublic(id: string) {
         const deck = await this.prisma.client.deck.findUnique({
-            where: { id },
+            where: { id, isPublic: true },
             include: { cards: true },
         });
         if (!deck) {
@@ -46,6 +47,7 @@ export class DecksService {
             data: {
                 title: dto.title,
                 description: dto.description,
+                isPublic: dto.isPublic ?? false,
                 userId,
                 cards: {
                     create: dto.cards,

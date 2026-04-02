@@ -27,6 +27,7 @@ async function main() {
         data: {
             title: 'JavaScript Fundamentals',
             description: 'Core concepts of JavaScript',
+            isPublic: true,
             userId: user.id,
             cards: {
                 create: [

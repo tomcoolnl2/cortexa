@@ -1,9 +1,7 @@
 import '@mantine/core/styles.css';
 import { ColorSchemeScript, MantineProvider } from '@mantine/core';
-import { AppHeader } from './app-header';
-import { auth } from '../auth';
-import { cookies } from 'next/headers';
-import { USER_ROLES } from '@cortexa/types';
+import { AppShellWrapper } from './app-shell';
+import { getViewer } from '../lib/viewer';
 
 export const metadata = {
     title: 'Cortexa',
@@ -15,9 +13,7 @@ export default async function RootLayout({
 }: {
     children: React.ReactNode;
 }) {
-    const session = await auth();
-    const scenarioCookie = (await cookies()).get('cortexa_role_scenario')?.value;
-    const scenarioRole = USER_ROLES.find((role) => role === scenarioCookie);
+    const viewer = await getViewer();
 
     return (
         <html lang="en" suppressHydrationWarning>
@@ -26,20 +22,21 @@ export default async function RootLayout({
             </head>
             <body>
                 <MantineProvider defaultColorScheme="auto">
-                    <AppHeader
+                    <AppShellWrapper
                         viewer={
-                            session?.user
+                            viewer
                                 ? {
-                                      name: session.user.name,
-                                      email: session.user.email,
-                                      image: session.user.image,
-                                      role: session.user.role,
+                                      name: viewer.name,
+                                      email: viewer.email,
+                                      image: viewer.image,
+                                      role: viewer.role,
                                   }
                                 : null
                         }
-                        scenarioRole={scenarioRole}
-                    />
-                    {children}
+                        scenarioRole={viewer?.scenarioRole}
+                    >
+                        {children}
+                    </AppShellWrapper>
                 </MantineProvider>
             </body>
         </html>
