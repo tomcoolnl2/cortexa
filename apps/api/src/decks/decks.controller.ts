@@ -31,7 +31,7 @@ export class PublicDecksController {
 
     @Get(':id')
     findOnePublic(@Param('id') id: string) {
-        return this.decksService.findOnePublic(id);
+    	return this.decksService.findOnePublic(id);
     }
 }
 
@@ -49,13 +49,13 @@ export class DecksController {
     @Get(':id')
     @Roles('admin', 'creator', 'reader')
     findOne(@Param('id') id: string, @CurrentUser() user: AuthenticatedRequestUser) {
-        return this.decksService.findOne(id, user.userId);
+    	return this.decksService.findOne(id, user.userId);
     }
 
     @Post()
     @Roles('admin', 'creator')
     create(@Body() dto: CreateDeckDto, @CurrentUser() user: AuthenticatedRequestUser) {
-        return this.decksService.create(user.userId, dto);
+    	return this.decksService.create(user.userId, dto);
     }
 
     @Patch(':id')
@@ -65,12 +65,12 @@ export class DecksController {
         @Body() dto: UpdateDeckDto,
         @CurrentUser() user: AuthenticatedRequestUser,
     ) {
-        return this.decksService.update(id, user.userId, dto);
+    	return this.decksService.update(id, user.userId, dto);
     }
 
     @Delete(':id')
     @Roles('admin', 'creator')
     remove(@Param('id') id: string, @CurrentUser() user: AuthenticatedRequestUser) {
-        return this.decksService.remove(id, user.userId);
+    	return this.decksService.remove(id, user.userId);
     }
 }

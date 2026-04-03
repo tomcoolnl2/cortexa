@@ -36,7 +36,7 @@ export class CardsController {
         @Body() dto: { term: string; definition: string },
         @CurrentUser() user: AuthenticatedRequestUser,
     ) {
-        return this.cardsService.create(deckId, user.userId, dto);
+    	return this.cardsService.create(deckId, user.userId, dto);
     }
 
     @Patch(':id')
@@ -46,12 +46,12 @@ export class CardsController {
         @Body() dto: { term?: string; definition?: string },
         @CurrentUser() user: AuthenticatedRequestUser,
     ) {
-        return this.cardsService.update(id, user.userId, dto);
+    	return this.cardsService.update(id, user.userId, dto);
     }
 
     @Delete(':id')
     @Roles('admin', 'creator')
     remove(@Param('id') id: string, @CurrentUser() user: AuthenticatedRequestUser) {
-        return this.cardsService.remove(id, user.userId);
+    	return this.cardsService.remove(id, user.userId);
     }
 }

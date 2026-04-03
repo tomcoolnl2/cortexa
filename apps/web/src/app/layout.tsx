@@ -44,11 +44,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                         viewer={
                             viewer
                                 ? {
-                                      name: viewer.name,
-                                      email: viewer.email,
-                                      image: viewer.image,
-                                      role: viewer.role,
-                                  }
+                                    name: viewer.name,
+                                    email: viewer.email,
+                                    image: viewer.image,
+                                    role: viewer.role,
+                                }
                                 : null
                         }
                         scenarioRole={viewer?.scenarioRole}

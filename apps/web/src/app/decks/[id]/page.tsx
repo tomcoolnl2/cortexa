@@ -61,14 +61,14 @@ export default async function DeckPage({ params }: DeckPageProps) {
                 </Badge>
             </Group>
 
-               {/* Show Edit button for users with edit permissions */}
-               {viewer && viewer.canCreate && (
-                   <Group mb="lg">
-                       <Link href={`/decks/${deck.id}/edit`} passHref>
-                           <Button component="a" variant="light">Edit Deck</Button>
-                       </Link>
-                   </Group>
-               )}
+            {/* Show Edit button for users with edit permissions */}
+            {viewer && viewer.canCreate && (
+                <Group mb="lg">
+                    <Link href={`/decks/${deck.id}/edit`} passHref>
+                        <Button component="a" variant="light">Edit Deck</Button>
+                    </Link>
+                </Group>
+            )}
 
             {viewer?.scenarioRole === 'reader' ? (
                 <Alert color="blue" variant="light" mb="lg">
