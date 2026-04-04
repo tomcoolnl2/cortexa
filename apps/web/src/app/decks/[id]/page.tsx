@@ -65,7 +65,7 @@ export default async function DeckPage({ params }: DeckPageProps) {
             {viewer && viewer.canCreate && (
                 <Group mb="lg">
                     <Link href={`/decks/${deck.id}/edit`} passHref>
-                        <Button component="a" variant="light">Edit Deck</Button>
+                        <Button variant="light">Edit Deck</Button>
                     </Link>
                 </Group>
             )}

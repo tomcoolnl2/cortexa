@@ -1,11 +1,7 @@
 'use client';
 
-import {
-    AppShell,
-    Group,
-    NavLink,
-} from '@mantine/core';
-import { IconWorld } from '@tabler/icons-react';
+import { AppShell, Group, NavLink } from '@mantine/core';
+import { IconWorld, IconCards } from '@tabler/icons-react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { AppHeader, type HeaderViewer } from './app-header';
@@ -52,6 +48,14 @@ export function AppShellWrapper({ viewer, scenarioRole, children }: AppShellWrap
                     label="All Decks"
                     leftSection={<IconWorld size={18} />}
                     active={pathname === '/decks/public'}
+                    onClick={() => setNavbarOpened(false)}
+                />
+                <NavLink
+                    component={Link}
+                    href="/decks/new"
+                    label="New Deck"
+                    leftSection={<IconCards size={18} />}
+                    active={pathname === '/decks/new'}
                     onClick={() => setNavbarOpened(false)}
                 />
             </AppShell.Navbar>

@@ -120,14 +120,14 @@ export default function EditDeckPage() {
                     </Paper>
                 ))}
                 <Button leftSection={<IconPlus size={16} />} variant="light" onClick={addCard} mb="lg" type="button">
-          Add Card
+                    Add Card
                 </Button>
                 <Group mt="md">
                     <Button type="submit" loading={submitting} disabled={submitting}>
-            Save Changes
+                        Save Changes
                     </Button>
                     <Button variant="outline" onClick={() => router.push(`/decks/${deckId}`)} disabled={submitting}>
-            Cancel
+                        Cancel
                     </Button>
                 </Group>
                 {error && <Alert color="red" mt="md">{error}</Alert>}
