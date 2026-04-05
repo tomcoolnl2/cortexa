@@ -4,6 +4,22 @@
         {
             "type": "node",
             "request": "launch",
+            "name": "Debug Next.js App (Nx)",
+            "runtimeExecutable": "node",
+            "runtimeArgs": [
+                "--inspect-brk",
+                "./node_modules/.bin/nx",
+                "dev",
+                "web"
+            ],
+            "console": "integratedTerminal",
+            "env": {
+                "NODE_ENV": "development"
+            }
+        },
+        {
+            "type": "node",
+            "request": "launch",
             "name": "Debug api with Nx",
             "runtimeExecutable": "npx",
             "runtimeArgs": ["nx", "serve", "api"],

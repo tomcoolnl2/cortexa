@@ -1,3 +1,7 @@
+declare global {
+    var __prisma: PrismaClient | undefined;
+}
+
 import { PrismaClient } from '@prisma/client';
 import { PrismaPg } from '@prisma/adapter-pg';
 
@@ -6,10 +10,6 @@ const DATABASE_URL =
     'postgresql://cortexa:cortexa_dev@localhost:5432/cortexa';
 
 let prisma: PrismaClient;
-
-declare global {
-    var __prisma: PrismaClient | undefined;
-}
 
 function createClient(): PrismaClient {
     const adapter = new PrismaPg({ connectionString: DATABASE_URL });

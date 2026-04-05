@@ -20,21 +20,6 @@ import { AuthenticatedRequestUser } from '../auth/auth.types';
  * All routes are relative to the global prefix "api",
  * so these become /api/decks, /api/decks/:id, etc.
  */
-@Controller('decks/public')
-export class PublicDecksController {
-    constructor(private readonly decksService: DecksService) {}
-
-    @Get()
-    findAllPublic() {
-        return this.decksService.findAllPublic();
-    }
-
-    @Get(':id')
-    findOnePublic(@Param('id') id: string) {
-    	return this.decksService.findOnePublic(id);
-    }
-}
-
 @Controller('decks')
 @UseGuards(JwtAuthGuard, RolesGuard)
 export class DecksController {

@@ -1,14 +1,16 @@
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { Card, QuizQuestion, QuizAnswerResult } from 'libs/models/src';
-import { QuizStrategy } from './quiz-strategy.interface';
+import type { QuizStrategy } from './quiz-strategy.interface';
 
 export class BasicMultipleChoiceStrategy implements QuizStrategy {
     generateQuestions(cards: Card[], count: number): QuizQuestion[] {
-        const shuffled = [...cards].sort(() => Math.random() - 0.5);
-        const selected = shuffled.slice(0, Math.min(count, cards.length));
+        // Filter out cards with null id to ensure cardId is always a string
+        const validCards = cards.filter((c) => c.id !== null);
+        const shuffled = [...validCards].sort(() => Math.random() - 0.5);
+        const selected = shuffled.slice(0, Math.min(count, validCards.length));
 
         return selected.map((card) => {
-            const wrongAnswers = cards
+            const wrongAnswers = validCards
                 .filter((c) => c.id !== card.id)
                 .sort(() => Math.random() - 0.5)
                 .slice(0, 3)
@@ -19,7 +21,7 @@ export class BasicMultipleChoiceStrategy implements QuizStrategy {
             );
 
             return {
-                cardId: card.id,
+                cardId: card.id as string,
                 term: card.term,
                 options,
                 correctIndex: options.indexOf(card.definition),

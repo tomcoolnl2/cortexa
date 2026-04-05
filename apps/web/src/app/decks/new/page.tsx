@@ -1,8 +1,9 @@
 import { Container, Text } from '@mantine/core';
 import { getViewer } from '../../../lib/viewer';
-import { CreateDeckForm } from './create-deck-form';
+import { DeckForm } from '../deck-form';
 
 export default async function NewDeckPage() {
+
     const viewer = await getViewer();
 
     if (!viewer) {
@@ -25,7 +26,8 @@ export default async function NewDeckPage() {
     }
 
     return (
-        <CreateDeckForm
+        <DeckForm
+            mode='create'
             apiToken={viewer.apiToken}
             scenarioRole={viewer.scenarioRole}
         />

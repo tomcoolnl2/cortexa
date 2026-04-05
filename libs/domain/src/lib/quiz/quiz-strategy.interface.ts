@@ -1,7 +1,7 @@
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { Card, QuizQuestion, QuizAnswerResult } from 'libs/models/src';
 
-export interface QuizStrategy {
+export type QuizStrategy = {
     /** Generate quiz questions from a set of cards */
     generateQuestions(cards: Card[], count: number): QuizQuestion[];
 

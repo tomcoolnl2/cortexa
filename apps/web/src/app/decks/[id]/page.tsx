@@ -1,49 +1,35 @@
-import { api } from '@cortexa/api-client';
-import {
-    Container,
-    Title,
-    Text,
-    SimpleGrid,
-    Group,
-    Badge,
-    Alert,
-    Button,
-} from '@mantine/core';
+
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
+import { api } from '@cortexa/api-client';
+import { Container, Title, Text, SimpleGrid, Group, Badge, Alert, Button } from '@mantine/core';
+import { IconEdit } from "@tabler/icons-react";
 import { FlashCard } from '@cortexa/ui';
 import { getViewer } from '../../../lib/viewer';
+import { DeckPageProps } from '../model';
+import { Deck } from '@cortexa/models';
 
-interface DeckPageProps {
-    params: Promise<{ id: string }>;
-}
 
 export default async function DeckPage({ params }: DeckPageProps) {
     const viewer = await getViewer();
     const { id } = await params;
 
-    let deck;
+    let deck: Deck | null = null;
     try {
         if (viewer) {
             deck = await api.decks.get(id, viewer.authContext);
-        } else {
-            deck = await api.decks.getPublic(id);
         }
     } catch {
-        return (
-            <Container size="md" py="xl">
-                <Link href="/decks/public" style={{ textDecoration: 'none' }}>
-                    &larr; Back to decks
-                </Link>
-                <Text c="red" mt="md">
-                    Deck not found, API unavailable, or access denied.
-                </Text>
-            </Container>
-        );
+        notFound();
+    }
+
+    if (!deck) {
+        return notFound();
     }
 
     return (
         <Container size="md" py="xl">
-            <Link href="/decks/public" style={{ textDecoration: 'none' }}>
+            <Link href="/decks" style={{ textDecoration: 'none' }}>
                 &larr; Back to decks
             </Link>
 
@@ -65,7 +51,9 @@ export default async function DeckPage({ params }: DeckPageProps) {
             {viewer && viewer.canCreate && (
                 <Group mb="lg">
                     <Link href={`/decks/${deck.id}/edit`} passHref>
-                        <Button variant="light">Edit Deck</Button>
+                        <Button variant="light" leftSection={<IconEdit size={16} />}>
+                            Edit Deck
+                        </Button>
                     </Link>
                 </Group>
             )}

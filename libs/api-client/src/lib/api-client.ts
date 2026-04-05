@@ -6,8 +6,7 @@ import {
     ApiAuthContext,
 } from 'libs/models/src';
 
-const API_BASE =
-    process.env['NEXT_PUBLIC_API_URL'] ?? 'http://localhost:3333/api';
+export const API_BASE = process.env['NEXT_PUBLIC_API_URL'] ?? 'http://localhost:3333/api';
 
 async function request<T>(
     path: string,
@@ -21,6 +20,7 @@ async function request<T>(
     if (auth?.token) {
         headers.Authorization = `Bearer ${auth.token}`;
     }
+
     if (auth?.scenarioRole) {
         headers['x-cortexa-role-scenario'] = auth.scenarioRole;
     }
@@ -30,6 +30,9 @@ async function request<T>(
         ...options,
         cache: 'no-store',
     });
+
+    console.log('API fetch', path, 'status:', res.status, 'options:', options, 'response:', res.clone().json ? await res.clone().json() : 'no-json');
+
     if (!res.ok) {
         throw new Error(`API ${res.status}: ${res.statusText}`);
     }
@@ -39,9 +42,6 @@ async function request<T>(
 export const api = {
     decks: {
         list: (auth: ApiAuthContext) => request<Deck[]>('/decks', auth),
-        listPublic: () => request<Deck[]>('/decks/public'),
-        getPublic: (id: string) =>
-            request<Deck>(`/decks/public/${encodeURIComponent(id)}`),
         get: (id: string, auth: ApiAuthContext) =>
             request<Deck>(`/decks/${encodeURIComponent(id)}`, auth),
         create: (dto: CreateDeckDto, auth: ApiAuthContext) =>

@@ -11,7 +11,7 @@ export interface Viewer {
     /** The real role from the database / session. */
     role: UserRole;
     /** Scenario override set by admin (if any). */
-    scenarioRole: UserRole | undefined;
+    scenarioRole: UserRole;
     /** The role currently in effect (scenario ?? real). */
     effectiveRole: UserRole;
     /** Signed JWT for API calls. */
@@ -47,7 +47,7 @@ export const getViewer = cache(async (): Promise<MaybeViewer> => {
         email: session.user.email ?? null,
         image: session.user.image ?? null,
         role: session.user.role,
-        scenarioRole,
+        scenarioRole: scenarioRole!,
         effectiveRole,
         apiToken: session.apiToken,
         authContext: {

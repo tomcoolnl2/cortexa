@@ -14,39 +14,68 @@ import {
     Alert,
     Switch,
 } from '@mantine/core';
-import { IconTrash, IconPlus } from '@tabler/icons-react';
+import { IconTrash, IconPlus, IconCheck, IconX } from '@tabler/icons-react';
 import { useRouter } from 'next/navigation';
+import { Card, Deck, UserRole } from '@cortexa/models';
+import { api } from '@cortexa/api-client';
 
-interface CardEntry {
-    term: string;
-    definition: string;
-}
 
-interface CreateDeckFormProps {
-    apiToken: string;
-    scenarioRole?: string;
-}
+type DeckFormProps =
+    | {
+        mode: 'create';
+        apiToken: string;
+        scenarioRole?: string;
+    }
+    | {
+        mode: 'edit';
+        apiToken: string;
+        scenarioRole: string;
+        deck: Deck
+    };
 
-export function CreateDeckForm({ apiToken, scenarioRole }: CreateDeckFormProps) {
+const cardEntryPlaceholder: Card = { 
+    id: null, 
+    deckId: null,
+    term: '', 
+    definition: '' 
+};
+
+export function DeckForm(formProps: DeckFormProps) {
+
+    const isEditMode = formProps.mode === 'edit';
+
     const router = useRouter();
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
-    const [isPublic, setIsPublic] = useState(false);
-    const [cards, setCards] = useState<CardEntry[]>([
-        { term: '', definition: '' },
-    ]);
+    const [title, setTitle] = useState(isEditMode && formProps.deck ? formProps.deck.title : '');
+    const [description, setDescription] = useState(isEditMode && formProps.deck ? formProps.deck.description || '' : '');
+
+    const [cards, setCards] = useState<Card[]>(() => {
+        if (isEditMode && formProps.deck) {
+            return formProps.deck.cards.length > 0
+                ? formProps.deck.cards
+                : [cardEntryPlaceholder];
+        }
+        return [cardEntryPlaceholder];
+    });
+
     const [submitting, setSubmitting] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
+    let successPage = '/decks';
+    let cancelPage = '/';
+    if (isEditMode && formProps.deck.id) {
+        successPage = `/decks/${formProps.deck.id}`;
+        cancelPage = `/decks/${formProps.deck.id}`;
+    }
+
     const addCard = () => {
-        setCards((prev) => [...prev, { term: '', definition: '' }]);
+        setCards((prev) => [...prev, cardEntryPlaceholder]);
     };
 
     const removeCard = (index: number) => {
         setCards((prev) => prev.filter((_, i) => i !== index));
     };
 
-    const updateCard = (index: number, field: keyof CardEntry, value: string) => {
+    const updateCard = (index: number, field: keyof Card, value: string) => {
         setCards((prev) =>
             prev.map((card, i) => (i === index ? { ...card, [field]: value } : card)),
         );
@@ -71,38 +100,43 @@ export function CreateDeckForm({ apiToken, scenarioRole }: CreateDeckFormProps) 
         setSubmitting(true);
 
         try {
-            const headers: Record<string, string> = {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${apiToken}`,
-            };
-
-            if (scenarioRole) {
-                headers['x-cortexa-role-scenario'] = scenarioRole;
+            // Check for unique title only on create
+            if (!isEditMode) {
+                const existing = await api.decks.list({ token: formProps.apiToken });
+                if (existing.some(deck => deck.title.trim().toLowerCase() === title.trim().toLowerCase())) {
+                    setError('A deck with this title already exists. Please choose a unique title.');
+                    setSubmitting(false);
+                    return;
+                }
             }
 
-            const res = await fetch(
-                `${process.env['NEXT_PUBLIC_API_URL'] ?? 'http://localhost:3333/api'}/decks`,
-                {
-                    method: 'POST',
-                    headers,
-                    body: JSON.stringify({
+            if (isEditMode && formProps.deck) {
+                // UPDATE
+                await api.decks.update(
+                    formProps.deck.id,
+                    {
                         title: title.trim(),
                         description: description.trim() || undefined,
-                        isPublic,
                         cards: validCards,
-                    }),
-                },
-            );
-
-            if (!res.ok) {
-                const body = await res.json().catch(() => ({}));
-                throw new Error(body.message ?? `API ${res.status}`);
+                    },
+                    { token: formProps.apiToken, scenarioRole: formProps.scenarioRole as UserRole }
+                );
+            } else {
+                // CREATE
+                await api.decks.create(
+                    {
+                        title: title.trim(),
+                        description: description.trim() || undefined,
+                        cards: validCards,
+                    },
+                    { token: formProps.apiToken, scenarioRole: formProps.scenarioRole as UserRole }
+                );
             }
 
-            router.push('/');
+            router.push(successPage);
             router.refresh();
-        } catch (err) {
-            setError(err instanceof Error ? err.message : 'Failed to create deck.');
+        } catch (err: unknown) {
+            setError(err instanceof Error ? err.message : 'Failed to save deck.');
         } finally {
             setSubmitting(false);
         }
@@ -110,7 +144,7 @@ export function CreateDeckForm({ apiToken, scenarioRole }: CreateDeckFormProps) 
 
     return (
         <Container size="sm" py="xl">
-            <Title mb="lg">Create Deck</Title>
+            <Title mb="lg">{isEditMode ? 'Update' : 'Create'} Deck</Title>
 
             {error ? (
                 <Alert color="red" variant="light" mb="md">
@@ -134,14 +168,6 @@ export function CreateDeckForm({ apiToken, scenarioRole }: CreateDeckFormProps) 
                     value={description}
                     onChange={(e) => setDescription(e.currentTarget.value)}
                     mb="md"
-                />
-
-                <Switch
-                    label="Public deck"
-                    description="Visible to everyone, including anonymous visitors"
-                    checked={isPublic}
-                    onChange={(e) => setIsPublic(e.currentTarget.checked)}
-                    mb="lg"
                 />
 
                 <Group justify="space-between" mb="sm">
@@ -196,12 +222,18 @@ export function CreateDeckForm({ apiToken, scenarioRole }: CreateDeckFormProps) 
                 ))}
 
                 <Group mt="lg">
-                    <Button type="submit" loading={submitting}>
-                        Create Deck
+                    <Button 
+                        type="submit" 
+                        loading={submitting} 
+                        leftSection={<IconCheck size={16} />} 
+                        disabled={submitting}
+                    >
+                        {isEditMode ? 'Update' : 'Create'} Deck
                     </Button>
                     <Button
                         variant="subtle"
-                        onClick={() => router.push('/')}
+                        onClick={() => router.push(cancelPage)}
+                        leftSection={<IconX size={16} />} 
                         disabled={submitting}
                     >
                         Cancel

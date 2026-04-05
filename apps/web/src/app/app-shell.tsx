@@ -44,10 +44,10 @@ export function AppShellWrapper({ viewer, scenarioRole, children }: AppShellWrap
             <AppShell.Navbar p="xs" withBorder={false}>
                 <NavLink
                     component={Link}
-                    href="/decks/public"
+                    href="/decks"
                     label="All Decks"
                     leftSection={<IconWorld size={18} />}
-                    active={pathname === '/decks/public'}
+                    active={pathname === '/decks'}
                     onClick={() => setNavbarOpened(false)}
                 />
                 <NavLink

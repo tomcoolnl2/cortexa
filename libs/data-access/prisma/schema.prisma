@@ -31,7 +31,6 @@ model Deck {
   id          String  @id @default(uuid())
   title       String
   description String?
-  isPublic    Boolean @default(false)
 
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)

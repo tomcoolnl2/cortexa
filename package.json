@@ -22,7 +22,8 @@
         "db:migrate": "NODE_OPTIONS='--experimental-require-module' prisma db push --schema=libs/data-access/prisma/schema.prisma",
         "db:generate": "NODE_OPTIONS='--experimental-require-module' prisma generate --schema=libs/data-access/prisma/schema.prisma",
         "db:seed": "tsx libs/data-access/prisma/seed.ts",
-        "db:studio": "NODE_OPTIONS='--experimental-require-module' prisma studio --schema=libs/data-access/prisma/schema.prisma",
+        "db:studio": "NODE_OPTIONS='--experimental-require-module' prisma studio --config=prisma.config.ts",
+        "db:rebuild": "npm run db:down && npm run db:up && npm run db:migrate && npm run db:seed",
         "docker:up": "docker compose up",
         "docker:down": "docker compose down",
         "docker:build": "docker compose build"

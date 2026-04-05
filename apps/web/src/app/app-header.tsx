@@ -13,8 +13,8 @@ import {
     useComputedColorScheme,
     Menu,
 } from '@mantine/core';
-import { signIn, signOut } from 'next-auth/react';
-import { IconSun, IconMoon } from '@tabler/icons-react';
+import { signIn, signOut, } from 'next-auth/react';
+import { IconSun, IconMoon, IconUser } from '@tabler/icons-react';
 import { UserRole } from '@cortexa/models';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
@@ -132,6 +132,7 @@ export function AppHeader({ viewer, scenarioRole }: AppHeaderProps) {
                 ) : (
                     <Button
                         size="xs"
+                        leftSection={<IconUser size={16} />}
                         onClick={async () => {
                             const res = await signIn('google', { redirect: false, callbackUrl: '/' });
                             if (res?.url) {

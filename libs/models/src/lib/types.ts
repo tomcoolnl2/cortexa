@@ -18,31 +18,29 @@ export interface ApiAuthContext {
 
 // ── Deck & Cards ──
 export interface Card {
-    id: string;
+    id: string | null;
+    deckId: string | null;
     term: string;
     definition: string;
-    deckId: string;
 }
 
 export interface Deck {
     id: string;
     title: string;
     description?: string;
-    isPublic: boolean;
-    userId: string;
     cards: Card[];
 }
 
 export interface CreateDeckDto {
     title: string;
     description?: string;
-    isPublic?: boolean;
     cards: { term: string; definition: string }[];
 }
 
 export interface UpdateDeckDto {
     title?: string;
     description?: string;
+    cards: Card[];
 }
 
 // ── Quiz ──

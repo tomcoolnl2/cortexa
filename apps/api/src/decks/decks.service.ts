@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, ForbiddenException, UnauthorizedException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateDeckDto, UpdateDeckDto } from '@cortexa/models';
 
@@ -7,33 +7,21 @@ export class DecksService {
     constructor(private readonly prisma: PrismaService) {}
 
     findAll(userId: string) {
-        return this.prisma.client.deck.findMany({
-            where: { userId },
-            include: { cards: true },
-        });
-    }
-
-    findAllPublic() {
-        return this.prisma.client.deck.findMany({
-            where: { isPublic: true },
-            include: { cards: true },
-        });
-    }
-
-    async findOnePublic(id: string) {
-        const deck = await this.prisma.client.deck.findUnique({
-            where: { id, isPublic: true },
-            include: { cards: true },
-        });
-        if (!deck) {
-            throw new NotFoundException(`Deck ${id} not found`);
+        if (!userId) {
+            throw new UnauthorizedException('User not authenticated');
         }
-        return deck;
+        return this.prisma.client.deck.findMany({
+            include: { cards: true },
+        });
     }
 
     async findOne(id: string, userId: string) {
-        const deck = await this.prisma.client.deck.findFirst({
-            where: { id, userId },
+        if (!userId) {
+            throw new UnauthorizedException('User not authenticated');
+        }
+        // First, check if the deck exists at all
+        const deck = await this.prisma.client.deck.findUnique({
+            where: { id },
             include: { cards: true },
         });
         if (!deck) {
@@ -42,15 +30,20 @@ export class DecksService {
         return deck;
     }
 
-    create(userId: string, dto: CreateDeckDto) {
+    async create(userId: string, dto: CreateDeckDto) {
+        if (!userId) {
+            throw new UnauthorizedException('User not authenticated');
+        }
         return this.prisma.client.deck.create({
             data: {
                 title: dto.title,
                 description: dto.description,
-                isPublic: dto.isPublic ?? false,
                 userId,
                 cards: {
-                    create: dto.cards,
+                    create: dto.cards.map(c => ({
+                        term: c.term,
+                        definition: c.definition,
+                    })),
                 },
             },
             include: { cards: true },
@@ -60,9 +53,21 @@ export class DecksService {
     async update(id: string, userId: string, dto: UpdateDeckDto) {
         await this.findOne(id, userId);
 
+        // Destructure cards from dto and handle them separately
+        const { cards, ...deckData } = dto as UpdateDeckDto;
+
         return this.prisma.client.deck.update({
             where: { id },
-            data: dto,
+            data: {
+                ...deckData,
+                ...(cards && {
+                    cards: {
+                        set: cards
+                            .filter(card => card.id) // Only include cards with a valid id
+                            .map(card => ({ id: card.id! }))
+                    }
+                }),
+            },
             include: { cards: true },
         });
     }
