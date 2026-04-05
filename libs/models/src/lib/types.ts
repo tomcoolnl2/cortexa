@@ -22,6 +22,8 @@ export interface Card {
     deckId: string | null;
     term: string;
     definition: string;
+    createdAt?: string;
+    updatedAt?: string;
 }
 
 export interface Deck {
@@ -29,6 +31,8 @@ export interface Deck {
     title: string;
     description?: string;
     cards: Card[];
+    createdAt: string;
+    updatedAt: string;
 }
 
 export interface CreateDeckDto {

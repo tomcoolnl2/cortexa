@@ -31,11 +31,10 @@ async function request<T>(
         cache: 'no-store',
     });
 
-    console.log('API fetch', path, 'status:', res.status, 'options:', options, 'response:', res.clone().json ? await res.clone().json() : 'no-json');
-
     if (!res.ok) {
         throw new Error(`API ${res.status}: ${res.statusText}`);
     }
+    
     return res.json() as Promise<T>;
 }
 

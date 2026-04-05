@@ -12,7 +12,6 @@ import {
     ActionIcon,
     Text,
     Alert,
-    Switch,
 } from '@mantine/core';
 import { IconTrash, IconPlus, IconCheck, IconX } from '@tabler/icons-react';
 import { useRouter } from 'next/navigation';
@@ -37,7 +36,7 @@ const cardEntryPlaceholder: Card = {
     id: null, 
     deckId: null,
     term: '', 
-    definition: '' 
+    definition: '',
 };
 
 export function DeckForm(formProps: DeckFormProps) {
