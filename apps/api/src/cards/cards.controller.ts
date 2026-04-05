@@ -18,6 +18,7 @@ import { AuthenticatedRequestUser } from '../auth/auth.types';
 @Controller('decks/:deckId/cards')
 @UseGuards(JwtAuthGuard, RolesGuard)
 export class CardsController {
+    
     constructor(private readonly cardsService: CardsService) {}
 
     @Get()

@@ -51,10 +51,36 @@ export class DecksService {
     }
 
     async update(id: string, userId: string, dto: UpdateDeckDto) {
+        
+        if (!userId) {
+            throw new UnauthorizedException('User not authenticated');
+        }
+        
         await this.findOne(id, userId);
 
         // Destructure cards from dto and handle them separately
         const { cards, ...deckData } = dto as UpdateDeckDto;
+
+        // Get current cards for the deck
+        const currentDeck = await this.prisma.client.deck.findUnique({
+            where: { id },
+            include: { cards: true },
+        });
+
+        const currentCardIds = currentDeck?.cards.map(card => card.id) ?? [];
+        const updatedCardIds = (cards ?? []).filter(card => card.id).map(card => card.id!);
+
+        // Cards to delete: present in DB but not in the update
+        const cardIdsToDelete = currentCardIds.filter(id => !updatedCardIds.includes(id));
+
+        if (cardIdsToDelete.length > 0) {
+            await this.prisma.client.card.deleteMany({
+                where: {
+                    id: { in: cardIdsToDelete },
+                    deckId: id,
+                },
+            });
+        }
 
         return this.prisma.client.deck.update({
             where: { id },
