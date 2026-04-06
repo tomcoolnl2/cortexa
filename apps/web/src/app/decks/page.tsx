@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { IconCards, IconCaretRight, IconEdit, IconInfoCircle } from '@tabler/icons-react';
-import { Container, Title, Text, SimpleGrid, Badge, Table, TableThead, TableTbody, TableTr, TableTh, TableTd, Tooltip } from '@mantine/core';
+import { Container, Title, Text, Flex, Badge, Table, TableThead, TableTbody, TableTr, TableTh, TableTd, Tooltip, ActionIcon } from '@mantine/core';
 import { api } from '@cortexa/api-client';
 import { Deck } from '@cortexa/types';
 import { getViewer } from '../../lib/viewer';
@@ -30,9 +30,9 @@ export default async function DecksPage() {
             <TableTh></TableTh>
             <TableTh>Title</TableTh>
             <TableTh>Description</TableTh>
-            <TableTh>Created</TableTh>
-            <TableTh w={100}>Size</TableTh>
-            <TableTh></TableTh>
+            <TableTh w={160}>Created</TableTh>
+            <TableTh w={120}>Size</TableTh>
+            <TableTh>Actions</TableTh>
         </TableTr>
     )
 
@@ -58,20 +58,28 @@ export default async function DecksPage() {
                 </Badge>
             </TableTd>
             <TableTd>
-                <SimpleGrid cols={2} spacing="xs">
-                    <Link key={deck.id + '-edit'} href={`/decks/${deck.id}/edit`}>
-                        <IconEdit size={16} />
-                    </Link>
-                    <Link key={deck.id + '-link'} href={`/decks/${deck.id}`}>
-                        <IconCaretRight size={16} />
-                    </Link>
-                </SimpleGrid>
+                <Flex
+                    direction='row'
+                    gap='xs'
+                    justify='end'
+                >
+                    <ActionIcon variant="default" size="md" aria-label="Toggle color scheme">
+                        <Link href={`/decks/${deck.id}/edit`}>
+                            <IconEdit size={16} />
+                        </Link>
+                    </ActionIcon>
+                    <ActionIcon variant="default" size="md" aria-label="Toggle color scheme">
+                        <Link href={`/decks/${deck.id}`}>
+                            <IconCaretRight size={16} />
+                        </Link>
+                    </ActionIcon>
+                </Flex>
             </TableTd>
         </TableTr>
     ));
 
     return (
-        <Container size="md" py="xl">
+        <Container size="lg" py="xl">
             <Title mb="lg"><IconCards size={30} /> Decks</Title>
             {viewer ? 
                 allDecksMap.size === 0 

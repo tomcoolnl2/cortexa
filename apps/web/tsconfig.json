@@ -26,6 +26,7 @@
 
         "../../apps/web/.next/types/**/*.ts",
         "../../dist/apps/web/.next/types/**/*.ts",
+        "../../types/**/*.ts",
 
         "next-env.d.ts"
     ],
