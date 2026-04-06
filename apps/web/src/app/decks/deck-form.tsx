@@ -15,7 +15,7 @@ import {
 } from '@mantine/core';
 import { IconTrash, IconPlus, IconCheck, IconX } from '@tabler/icons-react';
 import { useRouter } from 'next/navigation';
-import { Card, Deck, UserRole } from '@cortexa/models';
+import { Card, Deck, UserRole } from '@cortexa/types';
 import { api } from '@cortexa/api-client';
 
 

@@ -1,4 +1,4 @@
-import { USER_ROLES } from '@cortexa/models';
+import { USER_ROLES } from '@cortexa/types';
 import { NextResponse } from 'next/server';
 import { auth } from '../../../../auth';
 

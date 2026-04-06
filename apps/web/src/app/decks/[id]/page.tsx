@@ -7,7 +7,7 @@ import { IconEdit } from "@tabler/icons-react";
 import { FlashCard } from '@cortexa/ui';
 import { getViewer } from '../../../lib/viewer';
 import { DeckPageProps } from '../model';
-import { Deck } from '@cortexa/models';
+import { Deck } from '@cortexa/types';
 
 
 export default async function DeckPage({ params }: DeckPageProps) {

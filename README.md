@@ -72,7 +72,7 @@ cortexa/
 All libraries are available via `@cortexa/*` path aliases:
 
 ```typescript
-import { Card, Deck } from '@cortexa/models';
+import { Card, Deck } from '@cortexa/types';
 import { BasicMultipleChoiceStrategy } from '@cortexa/domain';
 import { CardItem } from '@cortexa/ui';
 import { getPrismaClient } from '@cortexa/data-access';

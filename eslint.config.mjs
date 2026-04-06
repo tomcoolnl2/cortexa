@@ -18,7 +18,7 @@ export default [
     {
         files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
         rules: {
-            'indent': ['error', 4, { SwitchCase: 1 }],
+            indent: ['error', 4, { SwitchCase: 1 }],
             '@nx/enforce-module-boundaries': [
                 'error',
                 {

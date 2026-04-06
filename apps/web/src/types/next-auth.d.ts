@@ -1,5 +1,5 @@
 import 'next-auth';
-import { UserRole } from '@cortexa/models';
+import { UserRole } from '@cortexa/types';
 
 declare module 'next-auth' {
     interface User {

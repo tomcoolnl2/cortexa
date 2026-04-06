@@ -1,0 +1,26 @@
+title: Spatial Data in GIS: Raster vs Vector Explained
+description: An overview of raster and vector spatial data types, their characteristics, differences, and when to use each in GIS applications
+items:
+  - Spatial Data–Information that represents the location, shape, and attributes of objects on Earth
+  - Raster Data–A type of spatial data organized in a grid of cells or pixels, each with a value
+  - Vector Data–A type of spatial data represented by points, lines, and polygons defined by coordinates
+  - Grid–A network of rows and columns used to organize raster data
+  - Pixel–The smallest unit of a raster grid, representing a value or color
+  - Resolution–The level of detail in a raster dataset, determined by the number of pixels per unit area
+  - Discrete Data–Data representing distinct, separate objects, often stored as vector data
+  - Continuous Data–Data that varies smoothly across space, often stored as raster data
+  - Point Object–A vector object defined by a single coordinate pair representing a location
+  - Line Object–A vector object defined by a series of connected coordinates representing linear features
+  - Polygon Object–A vector object defined by a closed loop of coordinates representing areas
+  - Layer–A single dataset in GIS, either raster or vector, representing one type of spatial information
+  - Coordinate System–A reference framework for defining the location of objects in space
+  - Scalability–The property of vector data to maintain accuracy regardless of map scale
+  - Database Linking–Connecting vector objects to attribute data in a database
+  - Dimensionality–The number of spatial dimensions represented (1D, 2D, 3D)
+  - Surface Representation–Depicting real-world objects on a map or GIS model
+  - Digital Elevation Model (DEM)–A raster representation of terrain elevation
+  - Memory Usage–The amount of computer storage required to store spatial data
+  - Aerial Photograph–A raster image captured from above, often used for mapping and analysis
+  - Data Efficiency–The suitability of raster or vector data for a given task or dataset
+  - Raster vs Vector–Comparison of two main types of spatial data, highlighting their strengths and limitations
+  - Best Choice–No single type is inherently better; suitability depends on the use case

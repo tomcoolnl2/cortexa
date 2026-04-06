@@ -16,13 +16,13 @@
         "baseUrl": ".",
         "paths": {
             "@cortexa/ui": ["libs/ui/src/index.ts"],
-            "@cortexa/models": ["libs/models/src/index.ts"],
             "@cortexa/utils": ["libs/utils/src/index.ts"],
             "@cortexa/domain": ["libs/domain/src/index.ts"],
             "@cortexa/api-interfaces": ["libs/api-interfaces/src/index.ts"],
             "@cortexa/data-access": ["libs/data-access/src/index.ts"],
             "@cortexa/hooks": ["libs/hooks/src/index.ts"],
-            "@cortexa/api-client": ["libs/api-client/src/index.ts"]
+            "@cortexa/api-client": ["libs/api-client/src/index.ts"],
+            "@cortexa/types": ["types/src/index.ts"]
         }
     },
     "exclude": ["node_modules", "tmp"]

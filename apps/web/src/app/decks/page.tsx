@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { IconCards, IconCaretRight, IconEdit, IconInfoCircle } from '@tabler/icons-react';
 import { Container, Title, Text, SimpleGrid, Badge, Table, TableThead, TableTbody, TableTr, TableTh, TableTd, Tooltip } from '@mantine/core';
 import { api } from '@cortexa/api-client';
-import { Deck } from '@cortexa/models';
+import { Deck } from '@cortexa/types';
 import { getViewer } from '../../lib/viewer';
 
 
