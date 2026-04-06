@@ -1,11 +1,11 @@
 import fs from 'fs';
 import yaml from 'js-yaml';
-import { CreateCardDto } from '@cortexa/types';
+import { User, CreateDeckDto, CreateCardDto } from '@cortexa/types';
 import { getPrismaClient } from '../src/lib/prisma-client';
 
 const prisma = getPrismaClient();
 
-async function createDemoDeck(user: { id: string, email: string }) {
+async function createDemoDeck(user: User) {
     const demoDeck = await prisma.deck.create({
         data: {
             title: 'JavaScript Fundamentals',
@@ -47,30 +47,7 @@ async function createDemoDeck(user: { id: string, email: string }) {
     console.log(`Seeded deck: ${demoDeck.title} with 5 cards`);
 }
 
-async function main() {
-    const adminEmail =
-        process.env['ADMIN_EMAIL']?.trim().toLowerCase() ?? 'admin@cortexa.dev';
-
-    // Clean existing data
-    await prisma.quizAnswer.deleteMany();
-    await prisma.quizAttempt.deleteMany();
-    await prisma.card.deleteMany();
-    await prisma.deck.deleteMany();
-    await prisma.user.deleteMany();
-
-    // Create a first admin user (the Google account owner for local bootstrap).
-    const user = await prisma.user.create({
-        data: {
-            email: adminEmail,
-            name: 'Admin User',
-            role: 'admin',
-        },
-    });
-
-    // Create a sample demo deck
-    await createDemoDeck(user);
-
-    // Load additional deck from a YAML file
+async function createDeckFromYamlFile(user: User) {
     const seedFile = 'libs/data-access/prisma/seed-data.yaml';
     if (fs.existsSync(seedFile)) {
         const fileContents = fs.readFileSync(seedFile, 'utf8');
@@ -95,6 +72,69 @@ async function main() {
     } else {
         console.warn(`Seed file not found at path: ${seedFile}. Skipping additional seed data.`);
     }
+}
+
+async function createDeckFromTxtFile(user: User) {
+
+    const seedFile = 'libs/data-access/prisma/seed-data.txt';
+
+    if (fs.existsSync(seedFile)) {
+
+        const fileContents = fs.readFileSync(seedFile, 'utf8');
+        const cardLines = fileContents.split('\n').map(line => line.trim()).filter(line => line.length > 0);
+
+        const anonymousDeck: CreateDeckDto = {
+            title: 'Anonymous Deck: ' + new Date().toISOString(),
+            description: 'A deck created from a TXT file without explicit deck titles.',
+            userId: user.id,
+            cards: cardLines.map(line => line.split('|').map(part => part.trim())).map(([term, definition]) => ({ term, definition }))
+        };
+
+        await prisma.deck.create({
+            data: {
+                title: anonymousDeck.title,
+                description: anonymousDeck.description,
+                userId: user.id,
+                cards: {
+                    create: anonymousDeck.cards
+                }
+            },
+        });
+        console.log(`Seeded deck from TXT: ${anonymousDeck.title}`);
+
+    } else {
+        console.warn(`Seed file not found at path: ${seedFile}. Skipping additional seed data.`);
+    }
+}
+
+async function main() {
+
+    const adminEmail = process.env['ADMIN_EMAIL']?.trim().toLowerCase() ?? 'admin@cortexa.dev';
+
+    // Clean existing data
+    await prisma.quizAnswer.deleteMany();
+    await prisma.quizAttempt.deleteMany();
+    await prisma.card.deleteMany();
+    await prisma.deck.deleteMany();
+    await prisma.user.deleteMany();
+
+    // Create a first admin user (the Google account owner for local bootstrap).
+    const user = await prisma.user.create({
+        data: {
+            email: adminEmail,
+            name: 'Admin User',
+            role: 'admin',
+        },
+    });
+
+    // Create a sample demo deck
+    await createDemoDeck(user);
+
+    // Load additional deck from a YAML file
+    await createDeckFromYamlFile(user);
+
+    // Load additional deck from a TXT file
+    await createDeckFromTxtFile(user);
     
 }
 

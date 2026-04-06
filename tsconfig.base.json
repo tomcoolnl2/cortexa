@@ -22,7 +22,7 @@
             "@cortexa/data-access": ["libs/data-access/src/index.ts"],
             "@cortexa/hooks": ["libs/hooks/src/index.ts"],
             "@cortexa/api-client": ["libs/api-client/src/index.ts"],
-            "@cortexa/types": ["types/src/index.ts"]
+            "@cortexa/types": ["libs/types/src/index.ts"]
         }
     },
     "exclude": ["node_modules", "tmp"]
