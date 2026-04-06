@@ -1,5 +1,6 @@
 import fs from 'fs';
 import yaml from 'js-yaml';
+import { CreateCardDto } from '@cortexa/types';
 import { getPrismaClient } from '../src/lib/prisma-client';
 
 const prisma = getPrismaClient();
@@ -69,31 +70,31 @@ async function main() {
     // Create a sample demo deck
     await createDemoDeck(user);
 
-    // // Load additional deck from a YAML file
-    // const seedFile = './seed-data.yaml';
-    // if (fs.existsSync(seedFile)) {
-    //     const fileContents = fs.readFileSync(seedFile, 'utf8');
-    //     const data = yaml.load(fileContents) as { decks: any[] };
+    // Load additional deck from a YAML file
+    const seedFile = 'libs/data-access/prisma/seed-data.yaml';
+    if (fs.existsSync(seedFile)) {
+        const fileContents = fs.readFileSync(seedFile, 'utf8');
+        const data = yaml.load(fileContents) as { decks: any[] };
 
-    //     for (const deckData of data.decks) {
-    //         await prisma.deck.create({
-    //             data: {
-    //                 title: deckData.title,
-    //                 description: deckData.description,
-    //                 userId: user.id,
-    //                 cards: {
-    //                     create: deckData.cards.map((c: any) => ({
-    //                         term: c.term,
-    //                         definition: c.definition,
-    //                     })),
-    //                 },
-    //             },
-    //         });
-    //         console.log(`Seeded deck from YAML: ${deckData.title}`);
-    //     }
-    // } else {
-    //     console.warn(`Seed file not found at path: ${seedFile}. Skipping additional seed data.`);
-    // }
+        for (const deckData of data.decks) {
+            await prisma.deck.create({
+                data: {
+                    title: deckData.title,
+                    description: deckData.description,
+                    userId: user.id,
+                    cards: {
+                        create: deckData.cards.map((c: CreateCardDto) => ({
+                            term: c.term,
+                            definition: c.definition,
+                        })),
+                    },
+                },
+            });
+            console.log(`Seeded deck from YAML: ${deckData.title}`);
+        }
+    } else {
+        console.warn(`Seed file not found at path: ${seedFile}. Skipping additional seed data.`);
+    }
     
 }
 

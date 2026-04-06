@@ -35,10 +35,15 @@ export interface Deck {
     updatedAt: string;
 }
 
+export interface CreateCardDto {
+    term: string;
+    definition: string;
+}
+
 export interface CreateDeckDto {
     title: string;
     description?: string;
-    cards: { term: string; definition: string }[];
+    cards: CreateCardDto[];
 }
 
 export interface UpdateDeckDto {
