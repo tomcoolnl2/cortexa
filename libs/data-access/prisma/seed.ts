@@ -22,8 +22,8 @@ async function main() {
         },
     });
 
-    // Create a sample deck
-    const deck = await prisma.deck.create({
+    // Create a sample demo deck
+    const demoDeck = await prisma.deck.create({
         data: {
             title: 'JavaScript Fundamentals',
             description: 'Core concepts of JavaScript',
@@ -61,7 +61,7 @@ async function main() {
     });
 
     console.log(`Seeded admin user: ${user.email}`);
-    console.log(`Seeded deck: ${deck.title} with 5 cards`);
+    console.log(`Seeded deck: ${demoDeck.title} with 5 cards`);
 }
 
 main()

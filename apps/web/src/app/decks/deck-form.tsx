@@ -143,7 +143,7 @@ export function DeckForm(formProps: DeckFormProps) {
 
     return (
         <Container size="sm" py="xl">
-            <Title mb="lg">{isEditMode ? 'Update' : 'Create'} Deck</Title>
+            <Title mb="lg">{isEditMode ? 'Edit' : 'Create'} Deck</Title>
 
             {error ? (
                 <Alert color="red" variant="light" mb="md">
@@ -227,7 +227,7 @@ export function DeckForm(formProps: DeckFormProps) {
                         leftSection={<IconCheck size={16} />} 
                         disabled={submitting}
                     >
-                        {isEditMode ? 'Update' : 'Create'} Deck
+                        {isEditMode ? 'Update' : 'Create'}
                     </Button>
                     <Button
                         variant="subtle"
