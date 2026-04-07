@@ -49,9 +49,9 @@ export const getViewer = cache(async (): Promise<MaybeViewer> => {
         role: session.user.role,
         scenarioRole: scenarioRole!,
         effectiveRole,
-        apiToken: session.apiToken,
+        apiToken: session.apiToken ?? "",
         authContext: {
-            token: session.apiToken,
+            token: session.apiToken ?? "",
             scenarioRole,
         },
         canCreate: effectiveRole === 'admin' || effectiveRole === 'creator',

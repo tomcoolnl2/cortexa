@@ -3,6 +3,24 @@ import Google from 'next-auth/providers/google';
 import { SignJWT } from 'jose';
 import { USER_ROLES, UserRole } from '@cortexa/types';
 
+// Extend the Session and User types to include apiToken, scenarioRole, and role
+declare module 'next-auth' {
+    interface Session {
+        apiToken?: string;
+        scenarioRole?: UserRole;
+        user: {
+            id: string;
+            role: UserRole;
+            email?: string | null;
+            name?: string | null;
+            image?: string | null;
+        };
+    }
+    interface User {
+        role: UserRole;
+    }
+}
+
 const adminEmail = process.env['ADMIN_EMAIL']?.toLowerCase();
 const apiJwtSecret =
     process.env['API_JWT_SECRET'] ?? 'dev-insecure-api-jwt-secret';

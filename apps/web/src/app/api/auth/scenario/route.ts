@@ -5,7 +5,7 @@ import { auth } from '../../../../auth';
 export async function POST(req: Request) {
     const session = await auth();
 
-    if (!session?.user || session.user.role !== 'admin') {
+    if (!session?.user) {
         return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
 
