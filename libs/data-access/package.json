@@ -6,7 +6,11 @@
     "main": "./index.js",
     "types": "./index.d.ts",
     "dependencies": {
+        "js-yaml": "^4.1.0",
         "@prisma/client": "7.6.0",
         "@prisma/adapter-pg": "7.6.0"
+    },
+    "devDependencies": {
+        "@types/js-yaml": "^4.0.9"
     }
 }
