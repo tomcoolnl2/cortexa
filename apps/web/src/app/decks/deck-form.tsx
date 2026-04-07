@@ -17,6 +17,7 @@ import { IconTrash, IconPlus, IconCheck, IconX } from '@tabler/icons-react';
 import { useRouter } from 'next/navigation';
 import { Card, Deck, UserRole } from '@cortexa/types';
 import { api } from '@cortexa/api-client';
+import { ConfimationModal } from '@cortexa/ui';
 
 
 type DeckFormProps =
@@ -65,6 +66,18 @@ export function DeckForm(formProps: DeckFormProps) {
         successPage = `/decks/${formProps.deck.id}`;
         cancelPage = `/decks/${formProps.deck.id}`;
     }
+
+    const removeDeck = async () => {
+        if (isEditMode && formProps.deck) {
+            try {
+                await api.decks.remove(formProps.deck.id, { token: formProps.apiToken, scenarioRole: formProps.scenarioRole as UserRole });
+                router.push('/decks');
+                router.refresh();
+            } catch (err: unknown) {
+                setError(err instanceof Error ? err.message : 'Failed to delete deck.');
+            }
+        }
+    };
 
     const addCard = () => {
         setCards((prev) => [...prev, cardEntryPlaceholder]);
@@ -144,6 +157,16 @@ export function DeckForm(formProps: DeckFormProps) {
     return (
         <Container size="sm" py="xl">
             <Title mb="lg">{isEditMode ? 'Edit' : 'Create'} Deck</Title>
+
+            <ConfimationModal
+                modalHeader="Confirm Deletion"
+                modalText="Are you sure you want to delete this deck? This action cannot be undone."
+                buttonText="Delete"
+                buttonVariant="outline"
+                withCloseButton
+                onConfirm={removeDeck}
+                buttonIcon={<IconTrash size={16} />}
+            />
 
             {error ? (
                 <Alert color="red" variant="light" mb="md">

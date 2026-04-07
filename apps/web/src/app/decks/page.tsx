@@ -1,7 +1,8 @@
 import Link from 'next/link';
-import { IconCards, IconCaretRight, IconEdit, IconInfoCircle } from '@tabler/icons-react';
+import { IconCards, IconEye, IconEdit, IconInfoCircle } from '@tabler/icons-react';
 import { Container, Title, Text, Flex, Badge, Table, TableThead, TableTbody, TableTr, TableTh, TableTd, Tooltip, ActionIcon } from '@mantine/core';
 import { api } from '@cortexa/api-client';
+
 import { Deck } from '@cortexa/types';
 import { getViewer } from '../../lib/viewer';
 
@@ -70,7 +71,7 @@ export default async function DecksPage() {
                     </ActionIcon>
                     <ActionIcon variant="default" size="md" aria-label="Toggle color scheme">
                         <Link href={`/decks/${deck.id}`}>
-                            <IconCaretRight size={16} />
+                            <IconEye size={16} />
                         </Link>
                     </ActionIcon>
                 </Flex>

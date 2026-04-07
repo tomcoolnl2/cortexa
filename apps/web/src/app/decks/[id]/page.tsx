@@ -1,4 +1,3 @@
-
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { api } from '@cortexa/api-client';
@@ -8,6 +7,7 @@ import { FlashCard } from '@cortexa/ui';
 import { getViewer } from '../../../lib/viewer';
 import { DeckPageProps } from '../model';
 import { Deck } from '@cortexa/types';
+import DeckCards from './deck-cards';
 
 
 export default async function DeckPage({ params }: DeckPageProps) {
@@ -65,15 +65,7 @@ export default async function DeckPage({ params }: DeckPageProps) {
                 </Alert>
             ) : null}
 
-            <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="lg">
-                {deck.cards.map((card) => (
-                    <FlashCard
-                        key={card.id}
-                        term={card.term}
-                        definition={card.definition}
-                    />
-                ))}
-            </SimpleGrid>
+            <DeckCards cards={deck.cards} />
         </Container>
     );
 }

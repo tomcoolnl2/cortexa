@@ -1,4 +1,411 @@
 decks:
+  - title: "Traffic Insights: Tool Manual Glossary"
+    description: "A comprehensive guide to using the Traffic Insights tool, including features, functionalities, and best practices for analyzing and populating speed restrictions."
+    cards:
+      - term: "Traffic Insights"
+        definition: "Web tool used to analyze map content, traffic signs and speeds, and to create or edit speed populations. Entry point: https://trafficinsights.tomtom.com/ ."
+        starred: true
+
+      - term: "Speeds Labeling"
+        definition: "Plugin/layer in Traffic Insights used to work on speed tasks: navigate tasks, create/edit/delete populations, manage environments and helper layers."
+        starred: true
+
+      - term: "Speeds Labeling Workflow (Speeds Workflow)"
+        definition: "Workflow panel to select projects, serve tasks, set return codes, postpone, comment and mark tasks as Done, including QC and Rework flows."
+        starred: true
+
+      - term: "Speeds Road Network"
+        definition: "Layer that shows Orbis road geometry and key attributes for speed work, such as highway type, preset, maxspeed verification, DTFR, access, surface, track type, source, controlled access, speed origin and inside_city_limit."
+        starred: true
+
+      - term: "Orbis"
+        definition: "Current TomTom map/network environment used by Traffic Insights for speeds; supports Speeds Road Network, populations, and modern speed compilation."
+        starred: true
+
+      - term: "Genesis"
+        definition: "Legacy TomTom map/network environment; support for Genesis-based speed layers in Traffic Insights has been dropped."
+        starred: false
+
+      - term: "Map Geocoder type"
+        definition: "Selector in the map toolbar and Speeds Labeling layer that switches the active network between Orbis (O) and Genesis (G), controlling which network and attributes are used."
+        starred: false
+
+      - term: "DTFR (Direction Of Traffic Flow Restriction)"
+        definition: "Way attribute indicating if traffic is closed, restricted, or open in a given direction; visualized as red (closed), blue (restricted for some VTs) or green (open) arrows in Orbis."
+        starred: true
+
+      - term: "Digitization Direction"
+        definition: "The direction in which a way’s geometry is created (from start node to end node); used to interpret forward/backward speed attributes and visualization."
+        starred: true
+
+      - term: "N2C (Net 2 Class)"
+        definition: "Road hierarchy classification (e.g. motorway vs local); used in zoning rules such as 'include roads with same or lower N2C' when compiling zones."
+        starred: false
+
+      - term: "FOW (Form Of Way)"
+        definition: "Geometric type of a road (single carriageway, dual carriageway, ramp, roundabout, etc.), used in scope checks and some population rules."
+        starred: false
+
+      - term: "Controlled access"
+        definition: "Visualization of road access type (e.g. motorway/freeway vs local) within the Speeds Road Network Source/Controlled access color schema."
+        starred: false
+
+      - term: "Speed Origin"
+        definition: "Attribute and color schema indicating whether the applied speed is explicit (from sign/event), implicit (from defaults/areas) or missing."
+        starred: true
+
+      - term: "Inside City Limit (inside_city_limit=yes)"
+        definition: "Context tag and layer indicating that a way lies inside a built-up/urban area where specific default urban speed rules apply."
+        starred: false
+
+      - term: "Speed Areas"
+        definition: "Helper layer showing BUAs and other mixed areas (states, beaches, parks, admin places, etc.) used for implicit speeds and ORBIS speed compilation; distinguishable as Urban vs Non-Urban through configurable colors."
+        starred: false
+
+      - term: "Speeds Fused"
+        definition: "Layer showing the fused result of manually edited speeds and automatically generated speeds for Orbis."
+        starred: false
+
+      - term: "Manual Prod"
+        definition: "Population layer showing manually attributed speeds in the production environment."
+        starred: false
+
+      - term: "Implicits"
+        definition: "Population layer showing automatically generated speeds based on implicit rules such as BUAs, defaults and road types."
+        starred: false
+
+      - term: "Linear Population"
+        definition: "Population that applies a speed restriction along a line (one or more road segments) in one or both directions."
+        starred: true
+
+      - term: "Population Zone (Zonal Population)"
+        definition: "Population that applies a speed restriction to all road elements within a drawn polygon, typically used for speed zones or dead-end networks."
+        starred: true
+
+      - term: "Population Properties"
+        definition: "Details panel for a population showing ID, preset/exception, restrictions, VRD, geometry references and other attributes; when Exception exists the Preset ID is always 255."
+        starred: true
+
+      - term: "Preset"
+        definition: "Predefined speed profile from Yard (e.g. '50 Urban') selected when creating/editing a population; encodes speed value, context and sometimes vehicle rules."
+        starred: true
+
+      - term: "Exception"
+        definition: "User-defined set of speed restrictions used when no suitable preset exists; holds one or more restrictions with speed values, vehicle types, origin and time domains, and sets Preset ID to 255."
+        starred: true
+
+      - term: "Speed Restriction Type"
+        definition: "Type/category of a restriction within an Exception (e.g. maximum speed, advisory speed, variable speed, temporary)."
+        starred: false
+
+      - term: "Vehicle Types (VT)"
+        definition: "Vehicle categories to which a restriction applies (e.g. Passenger car, Resident, Taxi, Bus, Truck, Lorry); bundles such as General and Heavy select multiple VTs at once."
+        starred: true
+
+      - term: "Time Domain"
+        definition: "Restriction on when a speed applies, defined as specific daily hours, months or a fuzzy pattern like weekdays/weekends, configurable via the Time Domain editor."
+        starred: true
+
+      - term: "Fuzzy Time Domain"
+        definition: "Template-based description of time validity (e.g. nights, weekdays) selectable and searchable in the Time Domain editor."
+        starred: false
+
+      - term: "Origin (explicit/implicit in restriction)"
+        definition: "Field within a restriction indicating whether the speed value comes from explicit evidence (sign/event) or implicit logic."
+        starred: false
+
+      - term: "Delete population"
+        definition: "Special population that removes explicit speed restrictions from a road or route, leaving only implicit/default speeds; can be compiled from events or drawn as a custom line."
+        starred: true
+
+      - term: "Event"
+        definition: "Aggregated speed-related sign/evidence (e.g. speed limit, zone start/end, cancellation, BUA/Highway/Expressway sign) that carries or implies a speed value."
+        starred: true
+
+      - term: "Context Event"
+        definition: "Sign/evidence that affects how speeds are interpreted but has no speed value itself (e.g. road works, speed bump, sharp curve, intersection or priority signs)."
+        starred: true
+
+      - term: "VRD (Verification Date)"
+        definition: "Date/time when an event or population was last confirmed; refreshed when new observations arrive and used to compare recency between sources and network."
+        starred: true
+
+      - term: "SLM and MoMa Signs layer"
+        definition: "Layer that controls visualization of Events and Context Events, including time range, aggregation, source labels, cluster size, verification dates and speed tags."
+        starred: false
+
+      - term: "Aggregated Events"
+        definition: "Default visualization where multiple observations of the same sign category and heading are merged into a single event cluster to reduce clutter."
+        starred: false
+
+      - term: "Deactivated Events"
+        definition: "Events confirmed as not present or not valid (e.g. no_sign [ev], temporary_sign [ev], junk_sign [ev]); hidden by default but can be toggled on."
+        starred: false
+
+      - term: "Source labels (Events)"
+        definition: "Labels indicating the underlying observation sources for an event, such as eagle, slf2, evp-200, evp-43, evp-43-200, skn."
+        starred: false
+
+      - term: "Cluster size"
+        definition: "Number of observations supporting an event; can be filtered to show only events above a given minimum and highlighted when highest at a location."
+        starred: false
+
+      - term: "Speed tag (gold/silver/bronze)"
+        definition: "Confidence flag for skn-based events: gold (trusted, no validation needed), silver (trusted but validate), bronze (low confidence, must be validated)."
+        starred: true
+
+      - term: "Panoramix"
+        definition: "Internal street-level imagery source displayed as colored dots by freshness; one of the main verification sources for speed and geometry checks."
+        starred: true
+
+      - term: "Mapillary"
+        definition: "External street-level imagery source integrated as triangle icons; supports time range filtering and can be opened internally or in an external window."
+        starred: false
+
+      - term: "Nexar"
+        definition: "Imagery layer presented as hexagons containing one or more thumbnails/frames; allows inspection of frames, directions, quality and raw JSON data."
+        starred: false
+
+      - term: "GPS traces"
+        definition: "Layer of SDO probe traces used to check driveability and traffic directions on roads, with colored arrows indicating traces in both/one/no direction."
+        starred: true
+
+      - term: "ISA Scoper"
+        definition: "Plugin that creates routes, intersects them with built-up areas and visualizes the share of Motorway/Urban/Non-Urban as bar and pie charts, with CSV export."
+        starred: false
+
+      - term: "BUA (Built-up Area)"
+        definition: "Built-up areas used as context for speed defaults and in ISA Scoper analyses; in Speed Areas they are mixed with other area types."
+        starred: false
+
+      - term: "Viewport"
+        definition: "The currently visible map rectangle defined by center, zoom and screen size; used as the scope for Compile viewport and Copy viewport WKT."
+        starred: false
+
+      - term: "Compile viewport"
+        definition: "Action in Speeds Labeling that compiles populations from all suitable events visible in the current viewport bounding box."
+        starred: false
+
+      - term: "Copy viewport WKT"
+        definition: "Action that converts the current viewport’s bounding box into WKT and copies it to the clipboard for reuse elsewhere."
+        starred: false
+
+      - term: "Circle Measure Tool"
+        definition: "Speeds Labeling tool that draws 30 m radius circles to respect 30 m accuracy rules when creating or editing populations, toggled via icon or Ctrl+5."
+        starred: true
+
+      - term: "CSV Jump Table"
+        definition: "Panel where a CSV with task locations is uploaded and turned into an interactive table that can drive map navigation, comments and DONE status updates."
+        starred: false
+
+      - term: "Workflow System (SLM / ORBIT / BOTH)"
+        definition: "Selector in Speeds Labeling that controls which workflow projects are visible: SLM only, ORBIT (ACI) only or both."
+        starred: false
+
+      - term: "Environment (Production / Development)"
+        definition: "Toggle that decides whether you work on production tasks/data or development/enhancement tasks; propagated to multiple plugins and persisted across sessions."
+        starred: true
+
+      - term: "Population Layers (Linear / Zones)"
+        definition: "Group of layers showing linear populations and population zones, with options to show user labels, population IDs, filter to task populations and find by ID."
+        starred: true
+
+      - term: "User Labels (populations)"
+        definition: "Option in population layers to display the username of the editor who created a given population."
+        starred: false
+
+      - term: "Population IDs"
+        definition: "Option to display population identifiers on the map for easier reference and navigation."
+        starred: false
+
+      - term: "Show only task population"
+        definition: "Toggle that hides all populations except those belonging to the active task and any newly created ones, reducing visual noise."
+        starred: false
+
+      - term: "Helper Layers"
+        definition: "Group under Speeds Labeling containing auxiliary layers such as ACI and Speed Areas that support decision-making during speed work."
+        starred: false
+
+      - term: "ACI layer"
+        definition: "Helper layer showing ORBIT ACI anomalies as squares; clicking reveals anomaly details relevant for some projects."
+        starred: false
+
+      - term: "Custom Shapes manager"
+        definition: "UI component in Layer Manager that appears when custom lines or zones are created, allowing panning, copying, clearing and deleting shapes."
+        starred: true
+
+      - term: "Custom Line"
+        definition: "User-drawn line geometry used for linear populations or delete populations, either from an event or via the generic Speeds: Draw Shape context menu."
+        starred: true
+
+      - term: "Custom Zone"
+        definition: "User-drawn polygon used to define zonal populations, typically for speed zones or dead-end networks."
+        starred: true
+
+      - term: "Route (Online Routing API)"
+        definition: "Automatically generated line created via Start route → Add waypoint → Finish route here, used as geometry for a linear population."
+        starred: false
+
+      - term: "Speeds: Draw Shape"
+        definition: "Context menu option (or Ctrl+1/Ctrl+2 hotkeys) to draw a line or polygon shape that can be used as geometry when creating or editing a population."
+        starred: false
+
+      - term: "Creating population from a Shape"
+        definition: "Workflow where a previously drawn line or polygon is selected as geometry in the Create/Edit Population panel to generate a population along or within it."
+        starred: false
+
+      - term: "30 meters accuracy rule"
+        definition: "Specification that population start/end must be within 30 m of the relevant sign or intersection; otherwise snapping or non-snapping rules apply for both linear and zonal populations."
+        starred: true
+
+      - term: "Compile population from event"
+        definition: "Function that automatically creates a population from a selected speed limit or zone sign, using system rules for geometry and VRD."
+        starred: true
+
+      - term: "Create custom population from event"
+        definition: "Workflow where you select an event and choose Custom line or Custom zone to manually draw population geometry instead of relying on compiler geometry."
+        starred: false
+
+      - term: "Speeds: Create Population (from scratch)"
+        definition: "Top-bar flow to create a new population not directly tied to an event, using drawn shapes or routes as geometry and presets or exceptions as attributes."
+        starred: false
+
+      - term: "Apply Sync"
+        definition: "Action that commits a newly created or edited population transaction to the database; must be executed before closing a task unless explicitly overridden."
+        starred: true
+
+      - term: "Return code"
+        definition: "Mandatory label summarizing what happened in a task (issue or correctness) before marking it Done; divided into event-, population-, lead-, cc- and ACI-specific codes."
+        starred: true
+
+      - term: "Event-related return codes ([ev])"
+        definition: "Return codes describing issues with events, such as no_sign [ev], wrong_speed_value [ev], temporary_sign [ev], zone [ev], not_zone [ev], wrong_heading [ev] and others."
+        starred: false
+
+      - term: "Population-related return codes ([pop])"
+        definition: "Return codes describing problems with generated or edited populations, such as too_long_general [pop], too_short [pop], other_road [pop], scope_issue [pop], closed_road [pop]."
+        starred: true
+
+      - term: "Lead-based return codes ([lead])"
+        definition: "Special set of return codes used only in lead-based projects, e.g. [lead] too_short, [lead] too_long, [lead] explicit_sign, [lead] default."
+        starred: false
+
+      - term: "CC rules-based return codes ([cc])"
+        definition: "Return codes used in cross-country rules projects, such as [cc] false_positive, [cc] already_fixed, [cc] fixed, [cc] cant_fix, [cc] out_of_scope."
+        starred: false
+
+      - term: "ACI tasks return codes"
+        definition: "Return codes for ACI anomaly projects: Database Updated, Database Alternatively Updated, Already Fixed, Need Source Material, Not Valid."
+        starred: false
+
+      - term: "Favorite Return codes"
+        definition: "Feature allowing users to star frequently used return codes so they appear in a dedicated Favorite section with quick access."
+        starred: false
+
+      - term: "Postpone (task)"
+        definition: "Status and action used to put a task on hold (e.g. awaiting clarification or additional source), optionally with predefined or free-text comments."
+        starred: true
+
+      - term: "QC (Quality Check)"
+        definition: "Flow where QC operators review tasks claimed in Iris and can Accept, Accept with minor remark or Reject, driving tasks into Rework as needed."
+        starred: true
+
+      - term: "Rework"
+        definition: "Workflow where the original author corrects tasks that were rejected or accepted with minor remark in QC, then sends them back for another QC loop."
+        starred: true
+
+      - term: "Navigation Buttons (Prev/Next)"
+        definition: "Speeds Labeling map navigation controls (and . , hotkeys) used to move between recently visited locations."
+        starred: false
+
+      - term: "Shareable link"
+        definition: "Feature and Shift+L hotkey that copies a URL capturing the current Traffic Insights state, useful for asking help or sharing cases."
+        starred: false
+
+      - term: "Workspaces"
+        definition: "Saved combinations of layers, filters and layouts that can be quickly reloaded to restore a preferred working setup."
+        starred: false
+
+      - term: "User Preferences"
+        definition: "Configuration dialog where users set time display, measurement units, map animations, coordinate display, Panoramix/Mapillary window behavior and other UI options."
+        starred: false
+
+      - term: "Toggle interface view"
+        definition: "Control (and Ctrl+/ hotkey) cycling through showing all UI, hiding panels, or hiding the entire interface to focus on the map."
+        starred: false
+
+      - term: "Eye icon (UI visibility)"
+        definition: "Top-right icon that shows or hides the overall Traffic Insights UI, leaving only the map visible when needed."
+        starred: false
+
+      - term: "Base map selection"
+        definition: "Map toolbar options to choose between Orbis/Genesis, different visualization styles, satellite imagery or a solid color background."
+        starred: false
+
+      - term: "Ruler"
+        definition: "Toolbar tool to measure distances on the map; often superseded by the integrated measurement when drawing shapes."
+        starred: false
+
+      - term: "Clock (local time display)"
+        definition: "Toolbar control that shows local time for the current map extent."
+        starred: false
+
+      - term: "Search"
+        definition: "Map search bar enabling lookup by coordinates, ISO country codes or place names, with configurable result ordering and optional zoom lock."
+        starred: false
+
+      - term: "Layer Manager"
+        definition: "Left-hand panel listing all active layers, with controls to add, hide/show, clear, copy, collapse and manage individual layer settings."
+        starred: false
+
+      - term: "Find way by Id"
+        definition: "Speeds Road Network function allowing users to enter a way ID and zoom/highlight that specific geometry."
+        starred: false
+
+      - term: "Find event by Id"
+        definition: "SLM and MoMa Signs function to locate and highlight an event on the map using its ID."
+        starred: false
+
+      - term: "Find population by Id"
+        definition: "Population Layers function to locate and highlight a population on the map by its ID."
+        starred: false
+
+      - term: "Speeds: Create button (routing-based)"
+        definition: "Workflow button that deletes the existing proposal, lets the user click start/end on the map, creates a route via Orbis routing API and opens the population panel with geometry preselected."
+        starred: false
+
+      - term: "Removing explicit speed restrictions"
+        definition: "Chapter and workflows describing how to create delete populations (from events, from custom lines, or via a checkbox when creating a linear population)."
+        starred: false
+
+      - term: "Report map change (incorrect speed limit)"
+        definition: "Context menu entry that opens Vertex on Orbis, allowing users to submit speed limit feedback categorized as ADD/DELETE/MODIFY."
+        starred: false
+
+      - term: "Hotkeys (keyboard shortcuts)"
+        definition: "Configurable set of key combinations (Windows/Mac) that speed up actions such as toggling layers, drawing shapes, switching base maps and operating Speeds Labeling."
+        starred: false
+
+      - term: "Context menu"
+        definition: "Right-click menu providing options such as copying coordinates, removing markers, starting routes, drawing shapes, and opening the Routes & Shapes panel."
+        starred: false
+
+      - term: "Routes & Shapes panel"
+        definition: "Window listing all shapes and routes (including uploaded WKT/shape files) with options to edit, pan to and manage them."
+        starred: false
+
+      - term: "Apply → Sync warning"
+        definition: "Pop-up reminder that appears when closing a task with unsynchronized population changes, offering to go back or override and close regardless."
+        starred: false
+
+      - term: "Updated process for Apply Sync"
+        definition: "Workflow where populations are synced immediately after saving attributes in the create/edit panel, followed by a confirmation message and explicit Apply Sync button."
+        starred: false
+
+      - term: "Working Methodology (general rules)"
+        definition: "Section describing best practices: work from task-associated events, prefer editing proposals, limit multiple populations per item, obey 30 m rule and always sync before closing."
+        starred: true
+
   - title: "Spatial Data in GIS: Raster vs Vector Explained"
     description: "An overview of raster and vector spatial data types, their characteristics, differences, and when to use each in GIS applications"
     cards:
