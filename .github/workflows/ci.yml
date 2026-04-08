@@ -26,6 +26,8 @@ jobs:
 
             - run: npm ci
 
+            - run: npx prisma generate
+
             - run: npx nx run-many -t lint --exclude=cortexa
 
             - run: npx nx run-many -t test --exclude=cortexa

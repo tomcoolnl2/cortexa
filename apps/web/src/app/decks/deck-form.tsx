@@ -3,19 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { importCardsFromTextToDto } from '@cortexa/utils';
-import {
-    Container,
-    Title,
-    TextInput,
-    Textarea,
-    Group,
-    Paper,
-    ActionIcon,
-    Text,
-    Alert,
-    Button,
-    Modal,
-} from '@mantine/core';
+import { Container, Title, TextInput, Textarea, Group, Paper, ActionIcon, Text, Alert, Button, Modal } from '@mantine/core';
 import { IconTrash, IconUpload, IconPlus, IconCheck, IconX } from '@tabler/icons-react';
 import { Card, Deck, UserRole } from '@cortexa/types';
 import { api } from '@cortexa/api-client';
