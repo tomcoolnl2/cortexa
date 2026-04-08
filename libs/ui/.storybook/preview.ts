@@ -1,5 +1,6 @@
 import '@mantine/core/styles.css';
 import { MantineProvider } from '@mantine/core';
+import { ModalsProvider } from '@mantine/modals';
 import React from 'react';
 import type { Preview } from '@storybook/react';
 
@@ -26,15 +27,19 @@ const preview: Preview = {
                 MantineProvider,
                 { forceColorScheme: colorScheme },
                 React.createElement(
-                    'div',
-                    {
-                        style: {
-                            padding: 20,
-                            background: bg,
-                            minHeight: '100vh',
+                    ModalsProvider,
+                    null,
+                    React.createElement(
+                        'div',
+                        {
+                            style: {
+                                padding: 20,
+                                background: bg,
+                                minHeight: '100vh',
+                            },
                         },
-                    },
-                    React.createElement(Story)
+                        React.createElement(Story)
+                    )
                 )
             );
         },

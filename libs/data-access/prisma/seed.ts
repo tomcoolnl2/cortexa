@@ -2,6 +2,7 @@ import fs from 'fs';
 import yaml from 'js-yaml';
 import { User, CreateDeckDto, CreateCardDto } from '@cortexa/types';
 import { getPrismaClient } from '../src/lib/prisma-client';
+import { importCardsFromTextToDto } from '../src/index';
 
 const prisma = getPrismaClient();
 
@@ -81,13 +82,13 @@ async function createDeckFromTxtFile(user: User) {
     if (fs.existsSync(seedFile)) {
 
         const fileContents = fs.readFileSync(seedFile, 'utf8');
-        const cardLines = fileContents.split('\n').map(line => line.trim()).filter(line => line.length > 0);
+        const cards = importCardsFromTextToDto(fileContents);
 
         const anonymousDeck: CreateDeckDto = {
             title: 'Anonymous Deck: ' + new Date().toISOString(),
             description: 'A deck created from a TXT file without explicit deck titles.',
             userId: user.id,
-            cards: cardLines.map(line => line.split('|').map(part => part.trim())).map(([term, definition]) => ({ term, definition }))
+            cards
         };
 
         await prisma.deck.create({

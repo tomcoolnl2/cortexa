@@ -8,7 +8,10 @@
     "dependencies": {
         "js-yaml": "^4.1.0",
         "@prisma/client": "7.6.0",
-        "@prisma/adapter-pg": "7.6.0"
+        "@prisma/adapter-pg": "7.6.0",
+        "@cortexa/types": "*",
+        "vitest": "*",
+        "utils": "*"
     },
     "devDependencies": {
         "@types/js-yaml": "^4.0.9"

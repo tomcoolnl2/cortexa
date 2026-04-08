@@ -4,6 +4,12 @@
     "sourceRoot": "libs/types/src",
     "projectType": "library",
     "tags": [],
-    "// targets": "to see all targets run: nx show project types --web",
-    "targets": {}
+    "targets": {
+        "test": {
+            "executor": "nx:run-commands",
+            "options": {
+                "command": "echo 'No tests for types lib'"
+            }
+        }
+    }
 }

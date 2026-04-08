@@ -82,17 +82,36 @@ export class DecksService {
             });
         }
 
+        // Update existing cards and create new ones
+        if (cards && cards.length > 0) {
+            for (const card of cards) {
+                if (card.id) {
+                    // Update existing card
+                    await this.prisma.client.card.update({
+                        where: { id: card.id },
+                        data: {
+                            term: card.term,
+                            definition: card.definition,
+                        },
+                    });
+                } else {
+                    // Create new card
+                    await this.prisma.client.card.create({
+                        data: {
+                            term: card.term,
+                            definition: card.definition,
+                            deckId: id,
+                        },
+                    });
+                }
+            }
+        }
+
+        // Update deck data (title, description, etc.)
         return this.prisma.client.deck.update({
             where: { id },
             data: {
                 ...deckData,
-                ...(cards && {
-                    cards: {
-                        set: cards
-                            .filter(card => card.id) // Only include cards with a valid id
-                            .map(card => ({ id: card.id! }))
-                    }
-                }),
             },
             include: { cards: true },
         });

@@ -1,9 +1,8 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { api } from '@cortexa/api-client';
-import { Container, Title, Text, SimpleGrid, Group, Badge, Alert, Button } from '@mantine/core';
+import { Container, Title, Text, Group, Badge, Alert, ActionIcon } from '@mantine/core';
 import { IconEdit } from "@tabler/icons-react";
-import { FlashCard } from '@cortexa/ui';
 import { getViewer } from '../../../lib/viewer';
 import { DeckPageProps } from '../model';
 import { Deck } from '@cortexa/types';
@@ -33,7 +32,7 @@ export default async function DeckPage({ params }: DeckPageProps) {
                 &larr; Back to decks
             </Link>
 
-            <Group justify="space-between" mt="md" mb="lg">
+            <Group justify="space-between" align='top' mt="md" mb="lg">
                 <div>
                     <Title>{deck.title}</Title>
                     {deck.description && (
@@ -41,22 +40,16 @@ export default async function DeckPage({ params }: DeckPageProps) {
                             {deck.description}
                         </Text>
                     )}
+                    <Badge size="md" variant="light" mt="md">
+                        {deck.cards.length} cards
+                    </Badge>
                 </div>
-                <Badge size="lg" variant="light">
-                    {deck.cards.length} cards
-                </Badge>
+                {viewer && viewer.canCreate && (
+                    <ActionIcon variant="subtle" size="xl" component="a" href={`/decks/${deck.id}/edit`} title="Edit Deck">
+                        <IconEdit size={24} />
+                    </ActionIcon>
+                )}
             </Group>
-
-            {/* Show Edit button for users with edit permissions */}
-            {viewer && viewer.canCreate && (
-                <Group mb="lg">
-                    <Link href={`/decks/${deck.id}/edit`} passHref>
-                        <Button variant="light" leftSection={<IconEdit size={16} />}>
-                            Edit Deck
-                        </Button>
-                    </Link>
-                </Group>
-            )}
 
             {viewer?.scenarioRole === 'reader' ? (
                 <Alert color="blue" variant="light" mb="lg">

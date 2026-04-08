@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { SimpleGrid, Button, Group } from "@mantine/core";
+import { ActionIcon, SimpleGrid, Button, Group, Flex } from "@mantine/core";
+import { IconArrowBackUp, IconArrowsShuffle } from '@tabler/icons-react';
 import { FlashCard } from "@cortexa/ui";
 import { Card } from "@cortexa/types";
 
@@ -34,14 +35,25 @@ export default function DeckCards({ cards }: DeckCardsProps) {
 
     return (
         <>
-            <Group mb="md">
-                <Button onClick={handleShuffle} variant="light">
-                    Shuffle
-                </Button>
-                <Button onClick={handleReset} disabled={!isShuffled} variant="default">
-                    Reset
-                </Button>
-            </Group>
+            <Flex gap="xs" mb="md" justify="flex-end">
+                <ActionIcon
+                    variant="light"
+                    size="lg"
+                    onClick={handleShuffle}
+                    title="Shuffle cards"
+                >
+                    <IconArrowsShuffle size={18} />
+                </ActionIcon>
+                <ActionIcon
+                    variant="default"
+                    size="lg"
+                    onClick={handleReset}
+                    title="Reset"
+                    disabled={!isShuffled}
+                >
+                    <IconArrowBackUp size={18} />
+                </ActionIcon>
+            </Flex>
             <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="lg">
                 {shuffled.map((card) => (
                     <FlashCard key={card.id} term={card.term} definition={card.definition} />

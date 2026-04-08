@@ -1,5 +1,6 @@
 import '@mantine/core/styles.css';
 import { ColorSchemeScript, MantineProvider, createTheme, MantineColorsTuple } from '@mantine/core';
+import { ModalsProvider } from '@mantine/modals';
 import { AppShellWrapper } from './app-shell';
 import { getViewer } from '../lib/viewer';
 
@@ -40,21 +41,23 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             </head>
             <body>
                 <MantineProvider theme={theme} defaultColorScheme="auto">
-                    <AppShellWrapper
-                        viewer={
-                            viewer
-                                ? {
-                                    name: viewer.name,
-                                    email: viewer.email,
-                                    image: viewer.image,
-                                    role: viewer.role,
-                                }
-                                : null
-                        }
-                        scenarioRole={viewer?.scenarioRole}
-                    >
-                        {children}
-                    </AppShellWrapper>
+                    <ModalsProvider>
+                        <AppShellWrapper
+                            viewer={
+                                viewer
+                                    ? {
+                                        name: viewer.name,
+                                        email: viewer.email,
+                                        image: viewer.image,
+                                        role: viewer.role,
+                                    }
+                                    : null
+                            }
+                            scenarioRole={viewer?.scenarioRole}
+                        >
+                            {children}
+                        </AppShellWrapper>
+                    </ModalsProvider>
                 </MantineProvider>
             </body>
         </html>

@@ -2,18 +2,6 @@ decks:
   - title: "Traffic Insights: Tool Manual Glossary"
     description: "A comprehensive guide to using the Traffic Insights tool, including features, functionalities, and best practices for analyzing and populating speed restrictions."
     cards:
-      - term: "Traffic Insights"
-        definition: "Web tool used to analyze map content, traffic signs and speeds, and to create or edit speed populations. Entry point: https://trafficinsights.tomtom.com/ ."
-        starred: true
-
-      - term: "Speeds Labeling"
-        definition: "Plugin/layer in Traffic Insights used to work on speed tasks: navigate tasks, create/edit/delete populations, manage environments and helper layers."
-        starred: true
-
-      - term: "Speeds Labeling Workflow (Speeds Workflow)"
-        definition: "Workflow panel to select projects, serve tasks, set return codes, postpone, comment and mark tasks as Done, including QC and Rework flows."
-        starred: true
-
       - term: "Speeds Road Network"
         definition: "Layer that shows Orbis road geometry and key attributes for speed work, such as highway type, preset, maxspeed verification, DTFR, access, surface, track type, source, controlled access, speed origin and inside_city_limit."
         starred: true
@@ -63,11 +51,11 @@ decks:
         starred: false
 
       - term: "Speeds Fused"
-        definition: "Layer showing the fused result of manually edited speeds and automatically generated speeds for Orbis."
+        definition: "Layer showing the fused - by compiler - result of manually edited speeds and automatically generated speeds for Orbis."
         starred: false
 
-      - term: "Manual Prod"
-        definition: "Population layer showing manually attributed speeds in the production environment."
+      - term: "Manual Layer (prod/dev)"
+        definition: "Population layer showing manually attributed speeds in either environment."
         starred: false
 
       - term: "Implicits"

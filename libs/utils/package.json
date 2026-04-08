@@ -5,5 +5,8 @@
     "type": "module",
     "main": "./index.js",
     "types": "./index.d.ts",
-    "dependencies": {}
+    "dependencies": {
+        "vitest": "3.2.4",
+        "@cortexa/types": "0.0.1"
+    }
 }

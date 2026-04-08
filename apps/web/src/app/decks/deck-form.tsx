@@ -1,23 +1,26 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { importCardsFromTextToDto } from '@cortexa/utils';
 import {
     Container,
     Title,
     TextInput,
     Textarea,
-    Button,
     Group,
     Paper,
     ActionIcon,
     Text,
     Alert,
+    Button,
+    Modal,
 } from '@mantine/core';
-import { IconTrash, IconPlus, IconCheck, IconX } from '@tabler/icons-react';
-import { useRouter } from 'next/navigation';
+import { IconTrash, IconUpload, IconPlus, IconCheck, IconX } from '@tabler/icons-react';
 import { Card, Deck, UserRole } from '@cortexa/types';
 import { api } from '@cortexa/api-client';
 import { ConfimationModal } from '@cortexa/ui';
+import { useDisclosure } from '@mantine/hooks';
 
 
 type DeckFormProps =
@@ -47,6 +50,8 @@ export function DeckForm(formProps: DeckFormProps) {
     const router = useRouter();
     const [title, setTitle] = useState(isEditMode && formProps.deck ? formProps.deck.title : '');
     const [description, setDescription] = useState(isEditMode && formProps.deck ? formProps.deck.description || '' : '');
+    const [importModalOpened, { open: onImportModalOpen, close: onImportModalClose }] = useDisclosure(false);
+    const [importedText, setImportedText] = useState<string>('');
 
     const [cards, setCards] = useState<Card[]>(() => {
         if (isEditMode && formProps.deck) {
@@ -79,8 +84,23 @@ export function DeckForm(formProps: DeckFormProps) {
         }
     };
 
+    const addCards = () => {
+        const newCards = importCardsFromTextToDto(importedText);
+        // carddtos to card
+        const newCardEntries: Card[] = newCards.map((cardDto) => ({
+            id: null,
+            deckId: null,
+            term: cardDto.term,
+            definition: cardDto.definition,
+        }));
+
+        setCards((prev) => [...prev, ...newCardEntries]);
+        onImportModalClose();
+    };
+
     const addCard = () => {
         setCards((prev) => [...prev, cardEntryPlaceholder]);
+        setTimeout(() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }), 100);
     };
 
     const removeCard = (index: number) => {
@@ -88,12 +108,10 @@ export function DeckForm(formProps: DeckFormProps) {
     };
 
     const updateCard = (index: number, field: keyof Card, value: string) => {
-        setCards((prev) =>
-            prev.map((card, i) => (i === index ? { ...card, [field]: value } : card)),
-        );
+        setCards((prev) => prev.map((card, i) => (i === index ? { ...card, [field]: value } : card)));
     };
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.SubmitEvent) => {
         e.preventDefault();
         setError(null);
 
@@ -156,17 +174,39 @@ export function DeckForm(formProps: DeckFormProps) {
 
     return (
         <Container size="sm" py="xl">
-            <Title mb="lg">{isEditMode ? 'Edit' : 'Create'} Deck</Title>
+            <Group justify="space-between" mb="md">
+                <Title>{isEditMode ? 'Edit' : 'Create'} Deck</Title>
+                <ConfimationModal
+                    modalHeader="Confirm Deletion"
+                    modalText="Are you sure you want to delete this deck? This action cannot be undone."
+                    buttonText="Delete"
+                    buttonVariant="outline"
+                    withCloseButton
+                    onConfirm={removeDeck}
+                    buttonIcon={<IconTrash size={16} />}
+                />
+            </Group>
 
-            <ConfimationModal
-                modalHeader="Confirm Deletion"
-                modalText="Are you sure you want to delete this deck? This action cannot be undone."
-                buttonText="Delete"
-                buttonVariant="outline"
-                withCloseButton
-                onConfirm={removeDeck}
-                buttonIcon={<IconTrash size={16} />}
-            />
+            <Modal title='Import your data' opened={importModalOpened} onClose={onImportModalClose} size="lg" withCloseButton={false}>
+                <Textarea
+                    label="Copy and Paste your data here"
+                    placeholder="e.g. Term | Definition"
+                    autosize
+                    minRows={10}
+                    maxRows={20}
+                    value={importedText}
+                    onChange={(e) => setImportedText(e.currentTarget.value)}
+                />
+                <Group gap="xs" mt="md">
+                    <Button onClick={addCards} leftSection={<IconCheck size={16} />} disabled={!importedText.trim()}>
+                        Import
+                    </Button>
+                    <Button variant="subtle" onClick={onImportModalClose} leftSection={<IconX size={16} />}>
+                        Cancel
+                    </Button>
+                </Group>
+            </Modal>
+
 
             {error ? (
                 <Alert color="red" variant="light" mb="md">
@@ -192,16 +232,26 @@ export function DeckForm(formProps: DeckFormProps) {
                     mb="md"
                 />
 
-                <Group justify="space-between" mb="sm">
+                <Group justify="space-between" align="center" mb="sm">
                     <Text fw={500}>Cards</Text>
-                    <Button
-                        variant="light"
-                        size="xs"
-                        leftSection={<IconPlus size={14} />}
-                        onClick={addCard}
-                    >
-                        Add Card
-                    </Button>
+                    <Group gap="xs">
+                        <Button
+                            variant="light"
+                            size="xs"
+                            leftSection={<IconPlus size={14} />}
+                            onClick={addCard}
+                        >
+                            Add Card
+                        </Button>
+                        <ActionIcon
+                            variant="light"
+                            size="md"
+                            onClick={onImportModalOpen}
+                            title="Shuffle cards"
+                        >
+                            <IconUpload size={14} />
+                        </ActionIcon>
+                    </Group>
                 </Group>
 
                 {cards.map((card, index) => (
@@ -221,9 +271,7 @@ export function DeckForm(formProps: DeckFormProps) {
                                     label="Definition"
                                     placeholder="Back of card"
                                     value={card.definition}
-                                    onChange={(e) =>
-                                        updateCard(index, 'definition', e.currentTarget.value)
-                                    }
+                                    onChange={(e) => updateCard(index, 'definition', e.currentTarget.value) }
                                     autosize
                                     minRows={2}
                                 />
