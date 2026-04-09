@@ -1,7 +1,7 @@
 import Script from 'next/script';
 import { ColorSchemeScript, MantineProvider, createTheme, MantineColorsTuple } from '@mantine/core';
 import { ModalsProvider } from '@mantine/modals';
-import { AppShellWrapper } from './app-shell';
+import { AppShellWrapper } from '../components/app-shell';
 import { getViewer } from '../lib/viewer';
 
 import '@mantine/core/styles.css';
