@@ -1,14 +1,14 @@
 'use client';
 
-import { AppShell, Group, NavLink } from '@mantine/core';
-import { IconWorld, IconCards } from '@tabler/icons-react';
-import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { AppHeader, type HeaderViewer } from './app-header';
-import { UserRole } from '@cortexa/types';
+import { usePathname } from 'next/navigation';
 import { useState } from 'react';
+import { AppShell, Group, NavLink } from '@mantine/core';
+import { IconBrain, IconCards } from '@tabler/icons-react';
+import { UserRole } from '@cortexa/types';
 import { Burger } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
+import { AppHeader, type HeaderViewer } from './app-header';
 
 interface AppShellWrapperProps {
     viewer: HeaderViewer | null;
@@ -19,7 +19,7 @@ interface AppShellWrapperProps {
 export function AppShellWrapper({ viewer, scenarioRole, children }: AppShellWrapperProps) {
     const pathname = usePathname();
     const [navbarOpened, setNavbarOpened] = useState(false);
-    const isMobile = useMediaQuery('(max-width: 48em)'); // Mantine sm = 48em
+    const isMobile = useMediaQuery('(max-width: 48em)');
 
     return (
         <AppShell
@@ -41,12 +41,12 @@ export function AppShellWrapper({ viewer, scenarioRole, children }: AppShellWrap
                 </Group>
             </AppShell.Header>
 
-            <AppShell.Navbar p="xs" withBorder={false}>
+            <AppShell.Navbar p="xs" withBorder>
                 <NavLink
                     component={Link}
                     href="/decks"
                     label="All Decks"
-                    leftSection={<IconWorld size={18} />}
+                    leftSection={<IconBrain size={18} />}
                     active={pathname === '/decks'}
                     onClick={() => setNavbarOpened(false)}
                 />

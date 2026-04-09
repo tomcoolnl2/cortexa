@@ -1,5 +1,6 @@
 'use client';
 
+import { signIn, signOut, } from 'next-auth/react';
 import {
     Group,
     Title,
@@ -13,11 +14,11 @@ import {
     useComputedColorScheme,
     Menu,
 } from '@mantine/core';
-import { signIn, signOut, } from 'next-auth/react';
-import { IconSun, IconMoon, IconUser } from '@tabler/icons-react';
+import { IconBrain, IconSun, IconMoon, IconUser } from '@tabler/icons-react';
 import { UserRole } from '@cortexa/types';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 
 export interface HeaderViewer {
     name?: string | null;
@@ -74,7 +75,12 @@ export function AppHeader({ viewer, scenarioRole }: AppHeaderProps) {
             style={{ borderBottom: '1px solid var(--mantine-color-default-border)' }}
             w="100%"
         >
-            <Title order={3}>Cortexa</Title>
+            <Link href="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+                <Title order={3} m={0}>
+                    <IconBrain size={24} style={{ verticalAlign: 'middle', marginRight: 8 }} />
+                    Cortexa
+                </Title>
+            </Link>
 
             <Group gap="sm">
                 {viewer ? (

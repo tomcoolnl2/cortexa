@@ -3,12 +3,13 @@
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { importCardsFromTextToDto } from '@cortexa/utils';
-import { Container, Title, TextInput, Textarea, Group, Paper, ActionIcon, Text, Alert, Button, Modal } from '@mantine/core';
+import { Container, Title, TextInput, Textarea, Group, Paper, ActionIcon, Text, Alert, Button, Modal, FileButton } from '@mantine/core';
 import { IconTrash, IconUpload, IconPlus, IconCheck, IconX } from '@tabler/icons-react';
 import { Card, Deck, UserRole } from '@cortexa/types';
 import { api } from '@cortexa/api-client';
 import { ConfimationModal } from '@cortexa/ui';
 import { useDisclosure } from '@mantine/hooks';
+import { StdioNull } from 'child_process';
 
 
 type DeckFormProps =
@@ -40,6 +41,25 @@ export function DeckForm(formProps: DeckFormProps) {
     const [description, setDescription] = useState(isEditMode && formProps.deck ? formProps.deck.description || '' : '');
     const [importModalOpened, { open: onImportModalOpen, close: onImportModalClose }] = useDisclosure(false);
     const [importedText, setImportedText] = useState<string>('');
+    const [file, setFile] = useState<File | null>(null);
+
+    const setFileAndText = (file: File | null) => {
+        if (file === null) {
+            setImportedText('');
+            setFile(null);
+            return;
+        }
+        setImportedText('');
+        setFile(file);
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const text = e.target?.result;
+            if (typeof text === 'string') {
+                setImportedText(text);
+            }
+        };
+        reader.readAsText(file);
+    };
 
     const [cards, setCards] = useState<Card[]>(() => {
         if (isEditMode && formProps.deck) {
@@ -74,14 +94,12 @@ export function DeckForm(formProps: DeckFormProps) {
 
     const addCards = () => {
         const newCards = importCardsFromTextToDto(importedText);
-        // carddtos to card
         const newCardEntries: Card[] = newCards.map((cardDto) => ({
             id: null,
             deckId: null,
             term: cardDto.term,
             definition: cardDto.definition,
         }));
-
         setCards((prev) => [...prev, ...newCardEntries]);
         onImportModalClose();
     };
@@ -118,7 +136,6 @@ export function DeckForm(formProps: DeckFormProps) {
         setSubmitting(true);
 
         try {
-            // Check for unique title only on create
             if (!isEditMode) {
                 const existing = await api.decks.list({ token: formProps.apiToken });
                 if (existing.some(deck => deck.title.trim().toLowerCase() === title.trim().toLowerCase())) {
@@ -185,13 +202,18 @@ export function DeckForm(formProps: DeckFormProps) {
                     value={importedText}
                     onChange={(e) => setImportedText(e.currentTarget.value)}
                 />
-                <Group gap="xs" mt="md">
-                    <Button onClick={addCards} leftSection={<IconCheck size={16} />} disabled={!importedText.trim()}>
-                        Import
-                    </Button>
-                    <Button variant="subtle" onClick={onImportModalClose} leftSection={<IconX size={16} />}>
-                        Cancel
-                    </Button>
+                <Group justify="space-between" mt="md">
+                    <Group gap="xs">
+                        <Button onClick={addCards} leftSection={<IconCheck size={16} />} disabled={!importedText.trim()}>
+                            Import
+                        </Button>
+                        <Button variant="subtle" onClick={onImportModalClose} leftSection={<IconX size={16} />}>
+                            Cancel
+                        </Button>
+                    </Group>
+                    <FileButton onChange={setFileAndText} accept="text/plain" multiple={false}>
+                        {(props) => <Button {...props} rightSection={<IconUpload size={14} />}>Upload</Button>}
+                    </FileButton>
                 </Group>
             </Modal>
 
@@ -224,7 +246,6 @@ export function DeckForm(formProps: DeckFormProps) {
                     <Text fw={500}>Cards</Text>
                     <Group gap="xs">
                         <Button
-                            variant="light"
                             size="xs"
                             leftSection={<IconPlus size={14} />}
                             onClick={addCard}
@@ -232,7 +253,6 @@ export function DeckForm(formProps: DeckFormProps) {
                             Add Card
                         </Button>
                         <ActionIcon
-                            variant="light"
                             size="md"
                             onClick={onImportModalOpen}
                             title="Shuffle cards"

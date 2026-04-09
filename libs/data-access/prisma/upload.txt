@@ -1,0 +1,20 @@
+analysis in UX research | The process of interpreting data collected from research to identify patterns, themes, and insights.
+data synthesis in UX | Combining data from multiple sources to form meaningful conclusions and guide design decisions.
+affinity diagramming | A method of organizing ideas or observations into groups based on natural relationships to identify themes.
+thematic analysis | A method for identifying, analyzing, and reporting patterns (themes) within qualitative data.
+persona | A fictional, research-based representation of a user type that helps guide design decisions.
+scenario in UX | A narrative that describes how a persona would interact with a product in a specific context to achieve a goal.
+user journey map | A visual representation of the steps a user takes to accomplish a goal, including emotions and touchpoints.
+task analysis | A method of breaking down and examining how users perform specific tasks to identify improvements.
+user story | A short, simple description of a feature told from the perspective of the user: "As a [type of user], I want [goal] so that [reason]."
+customer experience map | A comprehensive view of the user's interactions across multiple channels and touchpoints with a brand.
+triangulation in UX analysis | Using multiple methods or data sources to validate findings and reduce bias.
+pattern recognition in UX | Identifying recurring themes or behaviors in user research data to inform design solutions.
+sentiment analysis | Evaluating user emotions, attitudes, and tone from qualitative data like surveys or feedback.
+quantitative data analysis | Analyzing numerical data (e.g., survey results, usage stats) using statistical techniques.
+qualitative data analysis | Interpreting non-numerical data (e.g., interview transcripts, observations) to extract insights.
+design implication | A specific recommendation or idea that arises from research findings and guides the design process.
+clustering in UX research | Grouping similar observations or responses to identify categories and commonalities.
+difference between analysis and synthesis | Analysis breaks data down to understand it; synthesis combines insights to form a coherent picture.
+mental model in UX | A representation of how users think something works, based on their experiences and expectations.
+experience mapping | A method to visualize users' end-to-end experiences, identifying pain points and opportunities.
