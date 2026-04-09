@@ -1,6 +1,6 @@
 import { Container, Text } from '@mantine/core';
 import { getViewer } from '../../../lib/viewer';
-import { DeckForm } from '../deck-form';
+import { DeckForm } from '../../../components/deck-form';
 
 export default async function NewDeckPage() {
 
