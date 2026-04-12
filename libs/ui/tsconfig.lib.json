@@ -7,7 +7,11 @@
             "@nx/react/typings/cssmodule.d.ts",
             "@nx/react/typings/image.d.ts",
             "vite/client"
-        ]
+        ],
+        "moduleResolution": "bundler",
+        "module": "esnext",
+        "composite": true,
+        "declaration": true
     },
     "exclude": [
         "**/*.spec.ts",
@@ -35,5 +39,11 @@
         "**/*.stories.jsx",
         "**/*.stories.tsx"
     ],
-    "include": ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.tsx"]
+    "include": [
+        "src/**/*.js",
+        "src/**/*.jsx",
+        "src/**/*.ts",
+        "src/**/*.tsx",
+        "../../types/**/*.d.ts"
+, "../../apps/web/src/components/action-delete-deck.tsx"    ]
 }

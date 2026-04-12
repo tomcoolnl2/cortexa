@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ActionIcon, SimpleGrid, Button, Group, Flex } from "@mantine/core";
+import { ActionIcon, SimpleGrid, Flex } from "@mantine/core";
 import { IconArrowBackUp, IconArrowsShuffle } from '@tabler/icons-react';
 import { FlashCard } from "@cortexa/ui";
 import { Card } from "@cortexa/types";

@@ -1,12 +1,13 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { api } from '@cortexa/api-client';
-import { Container, Title, Text, Group, Badge, Alert, ActionIcon } from '@mantine/core';
+import { Container, Title, Text, Group, Badge, Alert, ActionIcon, Flex } from '@mantine/core';
 import { IconEdit } from "@tabler/icons-react";
 import { getViewer } from '../../../lib/viewer';
 import { DeckPageProps } from '../model';
 import { Deck } from '@cortexa/types';
 import DeckCards from './deck-cards';
+import { ActionDeleteDeck } from '../../../components/action-delete-deck';
 
 
 export default async function DeckPage({ params }: DeckPageProps) {
@@ -32,23 +33,24 @@ export default async function DeckPage({ params }: DeckPageProps) {
                 &larr; Back to decks
             </Link>
 
-            <Group justify="space-between" align='top' mt="md" mb="lg">
-                <div>
+            <Group justify="space-between" align='flex-start' mt="md" mb="lg">
+                <Flex direction="column" gap="xs">
                     <Title>{deck.title}</Title>
-                    {deck.description && (
-                        <Text c="dimmed" mt={4}>
-                            {deck.description}
-                        </Text>
-                    )}
+                    {deck.description 
+                        ? <Text c="dimmed">{deck.description}</Text>
+                        : null}
                     <Badge size="md" variant="light" mt="md">
                         {deck.cards.length} cards
                     </Badge>
-                </div>
-                {viewer && viewer.canCreate && (
-                    <ActionIcon variant="subtle" size="xl" component="a" href={`/decks/${deck.id}/edit`} title="Edit Deck">
-                        <IconEdit size={24} />
-                    </ActionIcon>
-                )}
+                </Flex>
+                {viewer && viewer.canCreate
+                    ? <Flex direction="row" gap="xs" align='center'>
+                        <ActionIcon variant="subtle" size="xl" component="a" href={`/decks/${deck.id}/edit`} title="Edit Deck">
+                            <IconEdit size={24} />
+                        </ActionIcon>
+                        <ActionDeleteDeck id={deck.id} apiToken={viewer?.apiToken} scenarioRole={viewer?.scenarioRole} /> 
+                    </Flex>
+                    : null}
             </Group>
 
             {viewer?.scenarioRole === 'reader' ? (

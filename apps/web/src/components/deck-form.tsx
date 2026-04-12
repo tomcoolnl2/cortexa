@@ -2,14 +2,13 @@
 
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { importCardsFromTextToDto } from '@cortexa/utils';
 import { Container, Title, TextInput, Textarea, Group, Paper, ActionIcon, Text, Alert, Button, Modal, FileButton } from '@mantine/core';
 import { IconTrash, IconUpload, IconPlus, IconCheck, IconX } from '@tabler/icons-react';
+import { useDisclosure } from '@mantine/hooks';
+import { importCardsFromTextToDto } from '@cortexa/utils';
 import { Card, Deck, UserRole } from '@cortexa/types';
 import { api } from '@cortexa/api-client';
-import { ConfimationModal } from '@cortexa/ui';
-import { useDisclosure } from '@mantine/hooks';
-import { StdioNull } from 'child_process';
+import { ActionDeleteDeck } from './action-delete-deck';
 
 
 type DeckFormProps =
@@ -41,7 +40,7 @@ export function DeckForm(formProps: DeckFormProps) {
     const [description, setDescription] = useState(isEditMode && formProps.deck ? formProps.deck.description || '' : '');
     const [importModalOpened, { open: onImportModalOpen, close: onImportModalClose }] = useDisclosure(false);
     const [importedText, setImportedText] = useState<string>('');
-    const [file, setFile] = useState<File | null>(null);
+    const [, setFile] = useState<File | null>(null);
 
     const setFileAndText = (file: File | null) => {
         if (file === null) {
@@ -79,18 +78,6 @@ export function DeckForm(formProps: DeckFormProps) {
         successPage = `/decks/${formProps.deck.id}`;
         cancelPage = `/decks/${formProps.deck.id}`;
     }
-
-    const removeDeck = async () => {
-        if (isEditMode && formProps.deck) {
-            try {
-                await api.decks.remove(formProps.deck.id, { token: formProps.apiToken, scenarioRole: formProps.scenarioRole as UserRole });
-                router.push('/decks');
-                router.refresh();
-            } catch (err: unknown) {
-                setError(err instanceof Error ? err.message : 'Failed to delete deck.');
-            }
-        }
-    };
 
     const addCards = () => {
         const newCards = importCardsFromTextToDto(importedText);
@@ -181,15 +168,9 @@ export function DeckForm(formProps: DeckFormProps) {
         <Container size="sm" py="xl">
             <Group justify="space-between" mb="md">
                 <Title>{isEditMode ? 'Edit' : 'Create'} Deck</Title>
-                <ConfimationModal
-                    modalHeader="Confirm Deletion"
-                    modalText="Are you sure you want to delete this deck? This action cannot be undone."
-                    buttonText="Delete"
-                    buttonVariant="outline"
-                    withCloseButton
-                    onConfirm={removeDeck}
-                    buttonIcon={<IconTrash size={16} />}
-                />
+                {isEditMode 
+                    ? <ActionDeleteDeck id={formProps.deck.id} apiToken={formProps.apiToken} scenarioRole={formProps.scenarioRole} /> 
+                    : null}
             </Group>
 
             <Modal title='Import your data' opened={importModalOpened} onClose={onImportModalClose} size="lg" withCloseButton={false}>
