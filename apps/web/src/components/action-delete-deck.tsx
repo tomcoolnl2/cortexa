@@ -38,7 +38,6 @@ export function ActionDeleteDeck({ id, apiToken, scenarioRole, size = 'lg', onCo
             });
         } catch (err: unknown) {
             console.error('Failed to delete deck:', err);
-
             notifications.show({
                 title: 'Failed to delete deck',
                 message: 'An error occurred while trying to delete the deck. Please try again.',

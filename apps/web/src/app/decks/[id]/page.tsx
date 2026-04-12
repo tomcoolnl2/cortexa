@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { api } from '@cortexa/api-client';
-import { Container, Title, Text, Group, Badge, Alert, ActionIcon, Flex } from '@mantine/core';
+import { Container, Title, Text, Group, Badge, Alert, ActionIcon, Flex, Breadcrumbs } from '@mantine/core';
 import { IconEdit } from "@tabler/icons-react";
 import { getViewer } from '../../../lib/viewer';
 import { DeckPageProps } from '../model';
@@ -11,6 +11,7 @@ import { ActionDeleteDeck } from '../../../components/action-delete-deck';
 
 
 export default async function DeckPage({ params }: DeckPageProps) {
+
     const viewer = await getViewer();
     const { id } = await params;
 
@@ -27,12 +28,20 @@ export default async function DeckPage({ params }: DeckPageProps) {
         return notFound();
     }
 
+    const items = [
+        { title: 'All Decks', href: '/decks' },
+        { title: deck.title },
+    ].map((item, index) => (
+        item.href
+            ? <Link href={item.href} key={index}>
+                <Text size='xs' c='white'>{item.title}</Text>
+            </Link>
+            : <Text key={index} size='xs' c='dimmed'>{item.title}</Text>
+    ));
+
     return (
         <Container size="md" py="xl">
-            <Link href="/decks" style={{ textDecoration: 'none' }}>
-                &larr; Back to decks
-            </Link>
-
+            <Breadcrumbs>{items}</Breadcrumbs>
             <Group justify="space-between" align='flex-start' mt="md" mb="lg">
                 <Flex direction="column" gap="xs">
                     <Title>{deck.title}</Title>
