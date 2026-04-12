@@ -7,7 +7,7 @@ import { getViewer } from '../lib/viewer';
 
 import '@mantine/core/styles.css';
 import '@mantine/notifications/styles.css';
-// import './global.css';
+import './global.css';
 
 
 const themeColors: MantineColorsTuple = [

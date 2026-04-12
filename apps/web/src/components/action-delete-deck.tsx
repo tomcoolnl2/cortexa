@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation'
-import { ActionIcon, Text } from '@mantine/core';
+import { ActionIcon, MantineSize, Text } from '@mantine/core';
 import { IconTrash } from '@tabler/icons-react';
 import { modals } from '@mantine/modals';
 import { notifications } from '@mantine/notifications';
@@ -13,11 +13,12 @@ export interface ActionDeleteDeckProps {
     id: string;
     apiToken: string;
     scenarioRole: string;
+    size?: MantineSize;
     onConfirm?: () => void;
     onCancel?: () => void;
 }
 
-export function ActionDeleteDeck({ id, apiToken, scenarioRole, onConfirm, onCancel }: ActionDeleteDeckProps) {
+export function ActionDeleteDeck({ id, apiToken, scenarioRole, size = 'lg', onConfirm, onCancel }: ActionDeleteDeckProps) {
 
     const router = useRouter();
 
@@ -65,7 +66,7 @@ export function ActionDeleteDeck({ id, apiToken, scenarioRole, onConfirm, onCanc
         });
 
     return (
-        <ActionIcon color="red" variant="outline" onClick={openDeleteModal} aria-label="Delete deck">
+        <ActionIcon size={size} color="red" variant="outline" onClick={openDeleteModal} title="Delete deck">
             <IconTrash size={16} />
         </ActionIcon>
     );
