@@ -1,10 +1,12 @@
 import Script from 'next/script';
 import { ColorSchemeScript, MantineProvider, createTheme, MantineColorsTuple } from '@mantine/core';
 import { ModalsProvider } from '@mantine/modals';
+import { Notifications } from '@mantine/notifications';
 import { AppShellWrapper } from '../components/app-shell';
 import { getViewer } from '../lib/viewer';
 
 import '@mantine/core/styles.css';
+import '@mantine/notifications/styles.css';
 // import './global.css';
 
 
@@ -98,6 +100,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                             {children}
                         </AppShellWrapper>
                     </ModalsProvider>
+                    <Notifications />
                 </MantineProvider>
                 <Script
                     src="https://unpkg.com/three@0.153.0/build/three.min.js"

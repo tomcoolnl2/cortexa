@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation'
 import { ActionIcon, Text } from '@mantine/core';
 import { IconTrash } from '@tabler/icons-react';
 import { modals } from '@mantine/modals';
+import { notifications } from '@mantine/notifications';
 import { UserRole } from '@cortexa/types';
 import { api } from '@cortexa/api-client';
 
@@ -22,13 +23,29 @@ export function ActionDeleteDeck({ id, apiToken, scenarioRole, onConfirm, onCanc
 
     const removeDeck = async () => {
         try {
-            await api.decks.remove(id, { token: apiToken, scenarioRole: scenarioRole as UserRole });
-            onConfirm?.();
-            router.push('/decks');
-            router.refresh();
+            await api.decks.remove(id, { token: apiToken, scenarioRole: scenarioRole as UserRole }).then(() => {
+                notifications.show({
+                    title: 'Deck deleted',
+                    message: 'The deck has been successfully deleted.',
+                    withCloseButton: true
+                });
+                onConfirm?.();
+                router.push('/decks');
+                router.refresh();
+            }).catch((err) => {
+                throw err;
+            });
         } catch (err: unknown) {
-            // error notifocation can be added here
             console.error('Failed to delete deck:', err);
+
+            notifications.show({
+                title: 'Failed to delete deck',
+                message: 'An error occurred while trying to delete the deck. Please try again.',
+                color: 'red',
+                withCloseButton: true
+            });
+            onCancel?.();
+            router.refresh();
         }
     };
 
