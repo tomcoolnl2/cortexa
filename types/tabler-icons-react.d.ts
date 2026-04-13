@@ -33,6 +33,7 @@ declare module '@tabler/icons-react' {
   export const IconEye: React.FC<IconProps>;
   export const IconEyeOff: React.FC<IconProps>;
   export const IconInfoCircle: React.FC<IconProps>;
+  export const IconTestPipe: React.FC<IconProps>;
   
   // Add more icons as needed
 }

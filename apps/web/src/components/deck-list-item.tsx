@@ -5,9 +5,8 @@ import { ActionIcon, Card, CardSection, Divider, Flex, Group, Text, Badge, Title
 import { useMantineTheme } from '@mantine/core';
 import { useHover, useMediaQuery } from '@mantine/hooks';
 import { IconEdit } from "@tabler/icons-react";
-import { Deck } from '@cortexa/types';
+import { Deck, MaybeViewer } from '@cortexa/types';
 import { ActionDeleteDeck } from './action-delete-deck';
-import { MaybeViewer } from '../lib/viewer';
 
 interface DeckListItemProps {
     deck: Deck;

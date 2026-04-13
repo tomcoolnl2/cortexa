@@ -1,21 +1,3 @@
-export const USER_ROLES = ['admin', 'creator', 'reader'] as const;
-
-export type UserRole = (typeof USER_ROLES)[number];
-
-// ── User ──
-export interface User {
-    id: string;
-    email: string;
-    name?: string;
-    avatarUrl?: string;
-    role?: UserRole;
-}
-
-export interface ApiAuthContext {
-    token: string;
-    scenarioRole?: UserRole;
-}
-
 // ── Deck & Cards ──
 export interface Card {
     id: string | null;

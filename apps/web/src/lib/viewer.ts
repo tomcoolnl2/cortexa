@@ -1,29 +1,8 @@
 import { cache } from 'react';
-import { auth } from '../auth';
 import { cookies } from 'next/headers';
-import { USER_ROLES, UserRole, ApiAuthContext } from '@cortexa/types';
+import { USER_ROLES, MaybeViewer } from '@cortexa/types';
+import { auth } from '../auth';
 
-export interface Viewer {
-    authenticated: true;
-    name: string | null;
-    email: string | null;
-    image: string | null;
-    /** The real role from the database / session. */
-    role: UserRole;
-    /** Scenario override set by admin (if any). */
-    scenarioRole: UserRole;
-    /** The role currently in effect (scenario ?? real). */
-    effectiveRole: UserRole;
-    /** Signed JWT for API calls. */
-    apiToken: string;
-    /** Auth context object ready to pass to the API client. */
-    authContext: ApiAuthContext;
-    /** Permission helpers */
-    canCreate: boolean;
-    isAdmin: boolean;
-}
-
-export type MaybeViewer = Viewer | null;
 
 /**
  * Resolves the current viewer from the NextAuth session and scenario cookie.

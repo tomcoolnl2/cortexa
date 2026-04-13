@@ -2,5 +2,6 @@
   transition: 
     background-color 300ms ease, 
     opacity 300ms ease,
-    border-color 300ms ease;
+    border-color 300ms ease,
+    stroke 300ms ease;
 }

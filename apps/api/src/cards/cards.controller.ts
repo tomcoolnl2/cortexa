@@ -27,7 +27,7 @@ export class CardsController {
         @Param('deckId') deckId: string,
         @CurrentUser() user: AuthenticatedRequestUser,
     ) {
-        return this.cardsService.findAllByDeck(deckId, user.userId);
+        return this.cardsService.findAllByDeck(deckId, user.userId, user.role);
     }
 
     @Post()
@@ -37,7 +37,7 @@ export class CardsController {
         @Body() dto: { term: string; definition: string },
         @CurrentUser() user: AuthenticatedRequestUser,
     ) {
-    	return this.cardsService.create(deckId, user.userId, dto);
+    	return this.cardsService.create(deckId, user.userId, user.role, dto);
     }
 
     @Patch(':id')
@@ -47,12 +47,13 @@ export class CardsController {
         @Body() dto: { term?: string; definition?: string },
         @CurrentUser() user: AuthenticatedRequestUser,
     ) {
-    	return this.cardsService.update(id, user.userId, dto);
+    	return this.cardsService.update(id, user.userId, user.role, dto);
     }
 
     @Delete(':id')
     @Roles('admin', 'creator')
     remove(@Param('id') id: string, @CurrentUser() user: AuthenticatedRequestUser) {
-    	return this.cardsService.remove(id, user.userId);
+        console.warn(`Attempting to remove card with id ${id} for user ${user.userId}`);
+    	return this.cardsService.remove(id, user.userId, user.role);
     }
 }

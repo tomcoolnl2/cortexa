@@ -52,7 +52,6 @@ export function ActionDeleteDeck({ id, apiToken, scenarioRole, size = 'lg', onCo
     const openDeleteModal = () =>
         modals.openConfirmModal({
             title: 'Delete this deck',
-            centered: true,
             children: (
                 <Text size="sm">
 					Are you sure you want to delete this deck? This action cannot be undone.
@@ -62,6 +61,7 @@ export function ActionDeleteDeck({ id, apiToken, scenarioRole, size = 'lg', onCo
             confirmProps: { color: 'red', variant: 'outline' },
             onCancel,
             onConfirm: removeDeck,
+            withCloseButton: false
         });
 
     return (

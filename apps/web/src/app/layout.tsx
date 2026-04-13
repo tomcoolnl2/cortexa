@@ -7,6 +7,7 @@ import { getViewer } from '../lib/viewer';
 
 import '@mantine/core/styles.css';
 import '@mantine/notifications/styles.css';
+import '@mantine/carousel/styles.css';
 import './global.css';
 
 

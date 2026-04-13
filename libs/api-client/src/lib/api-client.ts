@@ -58,5 +58,9 @@ export const api = {
             request<void>(`/decks/${encodeURIComponent(id)}`, auth, {
                 method: 'DELETE',
             }),
+        removeCard: (id: string, cardId: string, auth: ApiAuthContext) =>
+            request<void>(`/decks/${encodeURIComponent(id)}/cards/${encodeURIComponent(cardId)}`, auth, {
+                method: 'DELETE',
+            }),
     },
 };

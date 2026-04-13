@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { CardItem } from './card-item';
+import { CardItem, CardListItem } from './';
 
 const meta: Meta<typeof CardItem> = {
     component: CardItem,
@@ -7,9 +7,10 @@ const meta: Meta<typeof CardItem> = {
 };
 export default meta;
 
-type Story = StoryObj<typeof CardItem>;
+type CardItemStory = StoryObj<typeof CardItem>;
+type CardListItemStory = StoryObj<typeof CardListItem>;
 
-export const Default: Story = {
+export const Default: CardItemStory = {
     args: {
         term: 'Closure',
         definition:
@@ -17,17 +18,18 @@ export const Default: Story = {
     },
 };
 
-export const WithActions: Story = {
+export const ListItem: CardListItemStory = {
     args: {
-        term: 'Hoisting',
-        definition:
-            "JavaScript's behavior of moving declarations to the top of the current scope.",
-        onEdit: () => console.log('edit'),
+        id: '1',
+        deckId: '1',
+        term: 'The Event Loop and Asynchronous Programming Model',
+        definition: "JavaScript's behavior of moving declarations to the top of the current scope.",
         onDelete: () => console.log('delete'),
     },
 };
 
-export const LongContent: Story = {
+
+export const LongContent: CardItemStory = {
     args: {
         term: 'The Event Loop and Asynchronous Programming Model',
         definition:
