@@ -68,7 +68,7 @@ export function DeckCards({ cards, viewer }: DeckCardsProps) {
     };
 
     return (<>
-        <Flex gap="xs" mb="md" justify="flex-end">
+        <Flex gap="xs" mb="md" justify="flex-end" mt={-56}>
             <ActionIcon
                 variant="light"
                 size="lg"

@@ -13,7 +13,7 @@ export function DeckBreadcrumbs({ deck }: DeckBreadcrumbsProps) {
     ].map((item, index) => (
         item.href
             ? <Link href={item.href} key={index}>
-                <Text size='xs' c='white'>{item.title}</Text>
+                <Text key={index} c='white' size='xs'>{item.title}</Text>
             </Link>
             : <Text key={index} size='xs' c='dimmed'>{item.title}</Text>
     ));

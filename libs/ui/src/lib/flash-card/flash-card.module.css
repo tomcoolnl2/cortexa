@@ -26,8 +26,8 @@
     justify-content: center;
     padding: var(--mantine-spacing-xl);
     border-radius: var(--mantine-radius-md);
-    border: 1px solid var(--mantine-color-default-border);
-    background: var(--mantine-color-body);
+    border: 1px solid var(--mantine-primary-color-filled);
+    background: var(--mantine-color-gray-9);
 }
 
 .back {
@@ -36,7 +36,7 @@
 
 .label {
     position: absolute;
-    top: var(--mantine-spacing-sm);
+    top: var(--mantine-spacing-xl);
     left: var(--mantine-spacing-xl);
 }
 
@@ -46,4 +46,11 @@
     line-clamp: 4;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    font-weight: 500;
+    font-size: 38px;
+    text-align: center;
+}
+
+.back .text {
+    font-size: 30px;
 }

@@ -7,7 +7,7 @@ import { DeckPageProps } from '../model';
 import { Deck } from '@cortexa/types';
 import { DeckCards } from '../../../components/deck-cards';
 import { ActionDeleteDeck } from '../../../components/action-delete-deck';
-import { DeckBreadcrumbs } from '../../../components/deck-breadcrumbs';
+import { DeckBreadcrumbs } from '../../../components/breadcrumbs';
 
 
 export default async function DeckPage({ params }: DeckPageProps) {

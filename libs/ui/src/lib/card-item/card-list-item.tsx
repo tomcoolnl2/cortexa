@@ -49,7 +49,7 @@ export function CardListItem({ id, deckId, term, definition, handleRemoveCard }:
                     {definition}
                 </Text>
             </CardSection>
-            <CardSection p='md' inheritPadding withBorder miw={100} style={{ display: 'flex', justifyContent: 'flex-end', ...style }}>
+            <CardSection p='md' inheritPadding withBorder style={{ display: 'flex', justifyContent: 'flex-end', ...style }}>
                 <Flex direction='row' gap='xs' align='center'>
                     {handleRemoveCard && (
                         <ActionIcon variant="subtle" size="md" color='red' onClick={openRemoveCardConfirmModal} title="Delete card">

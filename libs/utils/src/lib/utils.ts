@@ -28,3 +28,38 @@ export function importCardsFromTextToDto(
         .map((line) => line.split(cardSplitter).map((part) => part.trim()))
         .map(([term, definition]) => ({ term, definition }));
 }
+
+/**
+ * Creates a throttled version of a callback that only executes once per delay interval.
+ *
+ * Calls to the throttled function within the delay period are ignored.
+ * Useful for limiting the rate at which a function can fire (e.g., scroll or resize events).
+ *
+ * @template T - Argument types for the callback function.
+ * @param callback - The function to throttle.
+ * @param delay - The number of milliseconds to wait before allowing another call.
+ * @returns A throttled function with the same arguments as the callback.
+ *
+ * @example
+ * const throttled = throttle(() => console.log('Called!'), 500);
+ * window.addEventListener('resize', throttled);
+ */
+export function throttle<T extends unknown[]>(
+    callback: (...args: T) => void,
+    delay: number,
+) {
+    let isWaiting = false;
+
+    return (...args: T) => {
+        if (isWaiting) {
+            return;
+        }
+
+        callback(...args);
+        isWaiting = true;
+
+        setTimeout(() => {
+            isWaiting = false;
+        }, delay);
+    };
+}

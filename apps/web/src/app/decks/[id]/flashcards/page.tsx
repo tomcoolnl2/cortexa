@@ -6,7 +6,7 @@ import { getViewer } from '../../../../lib/viewer';
 import { DeckPageProps } from '../../model';
 import { Deck } from '@cortexa/types';
 import { DeckFlashCards } from '../../../../components/deck-flashcards';
-import { DeckBreadcrumbs } from '../../../../components/deck-breadcrumbs';
+import { DeckBreadcrumbs } from '../../../../components/breadcrumbs';
 
 
 export default async function DeckPage({ params }: DeckPageProps) {

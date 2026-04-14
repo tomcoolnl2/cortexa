@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { FlashCard } from './flash-card';
+import { FlashCard } from './';
 
 const meta: Meta<typeof FlashCard> = {
     component: FlashCard,
