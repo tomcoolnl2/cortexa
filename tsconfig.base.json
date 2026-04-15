@@ -23,7 +23,8 @@
             "@cortexa/hooks": ["libs/hooks/src/index.ts"],
             "@cortexa/api-client": ["libs/api-client/src/index.ts"],
             "@cortexa/types": ["libs/types/src/index.ts"]
-        }
+        },
+        "ignoreDeprecations": "6.0"
     },
     "exclude": ["node_modules", "tmp"],
     "include": ["types/**/*.d.ts"]
