@@ -1,0 +1,17 @@
+* {
+  transition: 
+    background-color 300ms ease, 
+    opacity 300ms ease,
+    border-color 300ms ease,
+    border-width 300ms ease,
+    stroke 300ms ease;
+}
+
+a {
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+
+a:hover {
+  border-bottom: 1px solid #766f34;
+}

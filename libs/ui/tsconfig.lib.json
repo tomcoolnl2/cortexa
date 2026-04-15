@@ -44,6 +44,6 @@
         "src/**/*.jsx",
         "src/**/*.ts",
         "src/**/*.tsx",
-        "../../types/**/*.d.ts"
-, "../../apps/web/src/components/action-delete-deck.tsx"    ]
+        "../../libs/types/src/**/*.ts"
+    ]
 }
