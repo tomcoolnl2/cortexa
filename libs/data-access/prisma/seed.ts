@@ -15,6 +15,11 @@ async function createDemoDeck(user: User) {
             cards: {
                 create: [
                     {
+                        term: 'HTML nonce global attribute',
+                        definition:
+                            'The nonce global attribute is a content attribute defining a cryptographic nonce ("number used once") which can be used by Content Security Policy to determine whether or not a given fetch will be allowed to proceed for a given element.',
+                    },
+                    {
                         term: 'Closure',
                         definition:
                             'A function that has access to variables in its outer (enclosing) scope, even after the outer function has returned.',
