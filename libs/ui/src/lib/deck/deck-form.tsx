@@ -3,12 +3,12 @@
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Container, Title, TextInput, Textarea, Group, Paper, ActionIcon, Text, Alert, Button, Modal, FileButton } from '@mantine/core';
-import { IconTrash, IconUpload, IconPlus, IconCheck, IconX } from '@tabler/icons-react';
 import { useDisclosure } from '@mantine/hooks';
-import { importCardsFromTextToDto } from '@cortexa/utils';
-import { Card, Deck, UserRole } from '@cortexa/types';
+import { IconTrash, IconUpload, IconPlus, IconCheck, IconX } from '@tabler/icons-react';
 import { api } from '@cortexa/api-client';
-import { ActionDeleteDeck } from './action-delete-deck';
+import { Card, Deck, UserRole } from '@cortexa/types';
+import { importCardsFromTextToDto } from '@cortexa/utils';
+import { ActionDeleteDeck } from '../action';
 
 
 type DeckFormProps =

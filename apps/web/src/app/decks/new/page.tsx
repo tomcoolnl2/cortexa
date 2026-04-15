@@ -1,6 +1,7 @@
 import { Container, Text } from '@mantine/core';
+import { DeckForm } from '@cortexa/ui';
 import { getViewer } from '../../../lib/viewer';
-import { DeckForm } from '../../../components/deck-form';
+
 
 export default async function NewDeckPage() {
 

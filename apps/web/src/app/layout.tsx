@@ -1,6 +1,6 @@
 
 import Script from 'next/script';
-import { AppShellWrapper } from '../components/app-shell';
+import { AppShellWrapper } from '@cortexa/ui';
 import { getViewer } from '../lib/viewer';
 import { COLORS, ColorSchemeScriptTag, CortexaProvider } from '@cortexa/ui';
 // import './global.css';

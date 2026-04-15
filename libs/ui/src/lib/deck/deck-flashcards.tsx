@@ -3,10 +3,10 @@
 import { useCallback, useEffect, useState } from 'react';
 import { EmblaCarouselType } from 'embla-carousel';
 import { Carousel } from '@mantine/carousel';
-import { Card } from "@cortexa/types";
 import { AspectRatio, Badge, Group, Progress, Text } from '@mantine/core';
-import { FlashCard } from "@cortexa/ui";
+import { Card } from "@cortexa/types";
 import { throttle } from "@cortexa/utils";
+import { FlashCard } from "../card";
 
 
 interface DeckCardsProps {

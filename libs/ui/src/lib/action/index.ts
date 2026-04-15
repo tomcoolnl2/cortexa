@@ -1,0 +1,1 @@
+export { ActionDeleteDeck } from './action-delete-deck';

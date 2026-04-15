@@ -2,12 +2,10 @@ import { notFound } from 'next/navigation';
 import { api } from '@cortexa/api-client';
 import { Container, Title, Text, Group, Badge, Alert, ActionIcon, Flex } from '@mantine/core';
 import { IconEdit, IconTestPipe } from "@tabler/icons-react";
+import { Deck } from '@cortexa/types';
+import { ActionDeleteDeck, DeckBreadcrumbs, DeckCards } from '@cortexa/ui';
 import { getViewer } from '../../../lib/viewer';
 import { DeckPageProps } from '../model';
-import { Deck } from '@cortexa/types';
-import { DeckCards } from '../../../components/deck-cards';
-import { ActionDeleteDeck } from '../../../components/action-delete-deck';
-import { DeckBreadcrumbs } from '../../../components/breadcrumbs';
 
 
 export default async function DeckPage({ params }: DeckPageProps) {

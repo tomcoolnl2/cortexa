@@ -33,6 +33,7 @@ interface AppHeaderProps {
 }
 
 export function AppHeader({ viewer, scenarioRole }: AppHeaderProps) {
+    
     const { setColorScheme } = useMantineColorScheme();
     const computedColorScheme = useComputedColorScheme('light');
     const router = useRouter();

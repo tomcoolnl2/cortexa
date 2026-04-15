@@ -6,7 +6,7 @@ import { useMantineTheme } from '@mantine/core';
 import { useHover, useMediaQuery } from '@mantine/hooks';
 import { IconEdit } from "@tabler/icons-react";
 import { Deck, MaybeViewer } from '@cortexa/types';
-import { ActionDeleteDeck } from './action-delete-deck';
+import { ActionDeleteDeck } from '../action';
 
 interface DeckListItemProps {
     deck: Deck;

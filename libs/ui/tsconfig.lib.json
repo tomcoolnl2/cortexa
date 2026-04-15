@@ -44,6 +44,8 @@
         "src/**/*.jsx",
         "src/**/*.ts",
         "src/**/*.tsx",
-        "../../libs/types/src/**/*.ts"
+        "../../libs/types/src/**/*.ts",
+        "../../libs/api-client/src/**/*.ts",
+        "../../libs/utils/src/**/*.ts"
     ]
 }

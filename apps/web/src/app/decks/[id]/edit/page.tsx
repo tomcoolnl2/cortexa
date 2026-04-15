@@ -1,9 +1,10 @@
 import { notFound } from 'next/navigation';
 import { Container, Text } from '@mantine/core';
 import { api } from '@cortexa/api-client';
+import { DeckForm } from '@cortexa/ui';
 import { getViewer } from '../../../../lib/viewer';
-import { DeckForm } from '../../../../components/deck-form';
 import { DeckPageProps } from '../../model';
+
 
 export default async function EditDeckPage({ params }: DeckPageProps) {
 

@@ -2,11 +2,11 @@
 
 import { useState } from "react";
 import { ActionIcon, SimpleGrid, Flex } from "@mantine/core";
+import { notifications } from "@mantine/notifications";
 import { IconArrowBackUp, IconArrowsShuffle } from '@tabler/icons-react';
 import { api } from '@cortexa/api-client';
-import { CardListItem } from "@cortexa/ui";
 import { Card, MaybeViewer } from "@cortexa/types";
-import { notifications } from "@mantine/notifications";
+import { CardListItem } from "../card";
 
 
 function shuffleArray<T>(array: T[]): T[] {

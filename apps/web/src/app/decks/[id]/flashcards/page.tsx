@@ -2,11 +2,10 @@
 import { notFound } from 'next/navigation';
 import { api } from '@cortexa/api-client';
 import { Container, Title, Group } from '@mantine/core';
+import { Deck } from '@cortexa/types';
+import { DeckBreadcrumbs, DeckFlashCards } from '@cortexa/ui';
 import { getViewer } from '../../../../lib/viewer';
 import { DeckPageProps } from '../../model';
-import { Deck } from '@cortexa/types';
-import { DeckFlashCards } from '../../../../components/deck-flashcards';
-import { DeckBreadcrumbs } from '../../../../components/breadcrumbs';
 
 
 export default async function DeckPage({ params }: DeckPageProps) {

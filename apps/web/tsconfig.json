@@ -28,7 +28,7 @@
 
         "next-env.d.ts",
         "../../types/**/*.d.ts"
-, "src/components/action-delete-deck.tsx"    ],
+, "../../libs/ui/src/lib/action/action-delete-deck.tsx", "../../libs/ui/src/lib/deck/deck-cards.tsx", "../../libs/ui/src/lib/deck/deck-flashcards.tsx", "../../libs/ui/src/lib/deck/deck-form.tsx", "../../libs/ui/src/lib/deck/deck-list-item.tsx", "../../libs/ui/src/lib/deck/deck-breadcrumbs.tsx"    ],
     "exclude": [
         "node_modules",
         "jest.config.ts",

@@ -3,8 +3,8 @@ import { Container, Title, Text, Group } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { api } from '@cortexa/api-client';
 import { Deck } from '@cortexa/types';
+import { DeckListItem } from '@cortexa/ui';
 import { getViewer } from '../../lib/viewer';
-import { DeckListItem } from '../../components/deck-list-item';
 
 
 export default async function DecksPage() {
