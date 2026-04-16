@@ -18,3 +18,7 @@ Clustering in UX research | Grouping similar observations or responses to identi
 Difference between analysis and synthesis | Analysis breaks data down to understand it; Synthesis combines insights to form a coherent picture.
 Mental model in UX | A representation of how users think something works, based on their experiences and expectations.
 Experience mapping | A method to visualize users' end-to-end experiences, identifying pain points and opportunities.
+Affordance | The possible actions that an object or interface allows a user to perform (what you can do)
+Signifier | A visual or contextual cue that communicates how to use an object or interface (how you know what to do)
+Progressive disclosure | A design principle where only the most essential information is shown initially, with additional details revealed through interaction (e.g. hover, click) to reduce clutter and cognitive load.
+Consistent visual language | The use of uniform visual elements (icons, colors, shapes, patterns) across an interface so users can quickly understand meaning without relearning new symbols.

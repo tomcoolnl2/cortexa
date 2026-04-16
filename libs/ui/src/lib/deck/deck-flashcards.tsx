@@ -19,8 +19,6 @@ export function DeckFlashCards({ cards }: DeckCardsProps) {
     const [embla, setEmbla] = useState<EmblaCarouselType | null>(null);
     const [currentSlide, setCurrentSlide] = useState(0);
 
-
-    // Throttle scroll progress updates to every 100ms
     const throttledSetScrollProgress = useCallback(
         throttle((value: number) => setScrollProgress(value), 100),
         []

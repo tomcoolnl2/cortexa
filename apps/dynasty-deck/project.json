@@ -1,0 +1,8 @@
+{
+    "name": "dynasty-deck",
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "sourceRoot": "apps/dynasty-deck",
+    "projectType": "application",
+    "tags": [],
+    "targets": {}
+}
