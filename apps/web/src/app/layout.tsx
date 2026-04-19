@@ -2,7 +2,7 @@
 import Script from 'next/script';
 import { AppShellWrapper } from '@cortexa/ui';
 import { getViewer } from '../lib/viewer';
-import { COLORS, ColorSchemeScriptTag, CortexaProvider } from '@cortexa/ui';
+import { COLORS, ColorSchemeScriptTag, AppProvider } from '@cortexa/ui';
 // import './global.css';
 
 
@@ -39,7 +39,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                         pointerEvents: 'none',
                     }}
                 />
-                <CortexaProvider>
+                <AppProvider>
                     <AppShellWrapper
                         viewer={
                             viewer
@@ -55,7 +55,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                     >
                         {children}
                     </AppShellWrapper>
-                </CortexaProvider>
+                </AppProvider>
                 <Script
                     src="https://unpkg.com/three@0.153.0/build/three.min.js"
                     strategy="beforeInteractive"

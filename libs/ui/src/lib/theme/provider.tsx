@@ -11,7 +11,7 @@ import '@mantine/carousel/styles.css';
 import './styles.css';
 
 
-const theme = createTheme({
+const defaultTheme = createTheme({
     colors: {
         theme: themeColors,
         dark: themeDarkColors,
@@ -20,7 +20,12 @@ const theme = createTheme({
     defaultRadius: 'xs',
 });
 
-export function CortexaProvider({ children }: { children: React.ReactNode }) {
+interface AppProviderProps {
+    theme?: ReturnType<typeof createTheme>;
+    children: React.ReactNode;
+}
+
+export function AppProvider({ theme = defaultTheme, children }: AppProviderProps) {
     return (
         <MantineProvider theme={theme} defaultColorScheme="auto">
             <ModalsProvider>

@@ -1,8 +1,9 @@
-import Script from 'next/script';
-import { AppShellWrapper } from '@cortexa/ui';
+
 import { getViewer } from '../lib/viewer';
-import { COLORS, ColorSchemeScriptTag, CortexaProvider } from '@cortexa/ui';
-// import './global.css';
+import { ColorSchemeScriptTag, AppProvider } from '@cortexa/ui';
+import { AppShellWrapper } from '../components/app/app-shell';
+import { dynastyDeckTheme } from '../ui/theme';
+import '../ui/global.css';
 
 export const metadata = {
     title: 'Dynasty Deck',
@@ -10,17 +11,12 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-    
+
     const viewer = await getViewer();
 
     return (
         <html lang="en" suppressHydrationWarning>
             <head>
-                <Script id="set-hex-bg-color" strategy="beforeInteractive">
-                    {`
-                        window.__HEX_BG_COLOR__ = '${COLORS.background}';
-                    `}
-                </Script>
                 <ColorSchemeScriptTag defaultColorScheme={'auto'} />
             </head>
             <body>
@@ -35,7 +31,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                         pointerEvents: 'none',
                     }}
                 />
-                <CortexaProvider>
+                <AppProvider theme={dynastyDeckTheme}>
                     <AppShellWrapper
                         viewer={
                             viewer
@@ -51,15 +47,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                     >
                         {children}
                     </AppShellWrapper>
-                </CortexaProvider>
-                <Script
-                    src="https://unpkg.com/three@0.153.0/build/three.min.js"
-                    strategy="beforeInteractive"
-                />
-                <Script
-                    src="/hex-bg.js"
-                    strategy="afterInteractive"
-                />
+                </AppProvider>
             </body>
         </html>
     );
